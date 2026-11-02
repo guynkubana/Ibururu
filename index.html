@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IBURURU</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400&family=Cormorant+Garamond:wght@300;400;500&display=swap">
+<style>
+:root{
+--gk:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.3 0 0 0 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+--gw:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.6 0 0 0 -.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+--D:min(46vw,70svh);--sx:62%;--h:66%;
+--fg:#1B2A41;--mute:#2f3c52;--line:rgba(27,42,65,.7);--do:1;--to:0;--sunY:0%;--vw:300;--di:inline;--ti:none;--grain:var(--gk);--inv:#F5F1EA;--gop:.5;--plate:#1B2A41;--plate-fg:#F5F1EA;--pgrain:var(--gw);
+box-sizing:border-box;color-scheme:light}
+@media (max-width:760px){:root{--D:min(80vw,50svh);--sx:50%}}
+@media (prefers-color-scheme:dark){:root:not([data-season="dawn"]){--fg:#F5F1EA;--mute:#8DA2BC;--line:rgba(245,241,234,.6);--do:0;--to:1;--sunY:58%;--vw:400;--di:none;--ti:inline;--grain:var(--gw);--inv:#12131C;--gop:.42;--plate:#F5F1EA;--plate-fg:#1B2A41;--pgrain:var(--gk);color-scheme:dark}}
+:root[data-season="twilight"]{--fg:#F5F1EA;--mute:#8DA2BC;--line:rgba(245,241,234,.6);--do:0;--to:1;--sunY:58%;--vw:400;--di:none;--ti:inline;--grain:var(--gw);--inv:#12131C;--gop:.42;--plate:#F5F1EA;--plate-fg:#1B2A41;--pgrain:var(--gk);color-scheme:dark}
+:root[data-season="dawn"]{--fg:#1B2A41;--mute:#2f3c52;--line:rgba(27,42,65,.7);--do:1;--to:0;--sunY:0%;--vw:300;--di:inline;--ti:none;--grain:var(--gk);--inv:#F5F1EA;--gop:.5;--plate:#1B2A41;--plate-fg:#F5F1EA;--pgrain:var(--gw);color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:#E3C7CB;color:var(--fg);font-family:"Source Serif 4",Georgia,serif;font-weight:300;overflow:hidden}
+a{color:inherit;text-decoration:none}
+.voice{font-family:"Cormorant Garamond",Georgia,serif;font-style:normal;font-weight:var(--vw)}
+i,em{font-style:normal}
+.dawn{display:var(--di)}.twi{display:var(--ti)}
+.scene{position:relative;height:100svh;overflow:hidden;isolation:isolate}
+.scene::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background-image:var(--grain);opacity:var(--gop);transition:opacity .9s}
+.lay{position:absolute;inset:0;transition:opacity .9s}
+.lay.d{opacity:var(--do)}.lay.t{opacity:var(--to)}
+.sky{position:absolute;left:0;right:0;top:0;height:var(--h);overflow:hidden;border-bottom:1px solid var(--line);z-index:0}
+.ground{position:absolute;left:0;right:0;top:var(--h);bottom:0;overflow:hidden;z-index:0}
+.sky .d{background:linear-gradient(180deg,#D3D6DB 0,#DCD6DC 28%,#E3C7CB 60%,#EED6C4 86%,#F5E4D0 100%)}
+.sky .t{background:linear-gradient(180deg,#12131C 0,#1B2A41 34%,#4A3B4E 68%,#8B5742 100%)}
+.ground .d{background:linear-gradient(180deg,#E6DCD0 0,#D6D0C4 100%)}
+.ground .t{background:linear-gradient(180deg,#3a2a30 0,#12131C 70%)}
+.glow{position:absolute;left:var(--sx);bottom:0;width:calc(var(--D)*2.4);height:calc(var(--D)*2.4);transform:translate(-50%,50%);animation:breathe 7s ease-in-out infinite alternate;-webkit-mask-image:radial-gradient(circle,#000 6%,transparent 68%);mask-image:radial-gradient(circle,#000 6%,transparent 68%)}
+.glow .d{background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(255,244,222,.55) 0 3deg,transparent 3deg 11deg),radial-gradient(circle,rgba(247,214,160,.95) 0,rgba(241,205,154,.4) 30%,transparent 62%)}
+.glow .t{background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(201,139,111,.35) 0 3deg,transparent 3deg 11deg),radial-gradient(circle,rgba(201,139,111,.85) 0,rgba(160,106,66,.4) 30%,transparent 62%)}
+@keyframes breathe{from{transform:translate(-50%,50%) scale(1)}to{transform:translate(-50%,50%) scale(1.07)}}
+.sun{position:absolute;left:var(--sx);width:var(--D);height:calc(var(--D)/2);margin-left:calc(var(--D)/-2);border-radius:50% 50% 0 0/100% 100% 0 0;overflow:hidden;transition:transform 1.2s cubic-bezier(.5,0,.2,1)}
+.sky .sun{bottom:0;transform:translateY(var(--sunY))}
+.sun .d{background:radial-gradient(circle at 50% 100%,#FDF0DC 0,#F4D7A6 28%,#E1AF74 56%,#E3C7CB 100%)}
+.sun .t{background:radial-gradient(circle at 50% 100%,#D9A27F 0,#C98B6F 30%,#A06A42 60%,#5C2E3B 100%)}
+.ground .sun{top:0;transform:scaleY(-1) translateY(var(--sunY));opacity:.45;filter:blur(2px);-webkit-mask-image:linear-gradient(to top,#000,transparent 90%);mask-image:linear-gradient(to top,#000,transparent 90%)}
+.top{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;padding:1.4rem 6vw 0;padding-top:calc(1.4rem + env(safe-area-inset-top,0px))}
+#wm{position:relative;display:flex;align-items:center;width:50vw;height:1.5em;overflow:hidden;font-size:clamp(1.1rem,2vw,1.7rem);font-weight:400;line-height:1;letter-spacing:.04em;margin-left:-6vw;padding:0 0 0 6vw;color:var(--plate-fg);background:var(--plate);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:letter-spacing .45s cubic-bezier(.5,0,.2,1),background-color .9s,color .9s}
+#wm::before{content:"";position:absolute;inset:0;background-image:var(--pgrain);opacity:.55;pointer-events:none}
+#wm:hover,#wm:focus-visible{letter-spacing:.07em}
+#wm:focus-visible{outline:2px solid var(--fg);outline-offset:6px}
+.menu a:focus-visible{outline:2px solid var(--plate-fg);outline-offset:-3px}
+.clock{text-align:right;font-weight:400;line-height:1.4;font-variant-numeric:tabular-nums;padding-top:.5rem}
+.clock .tm{font-size:clamp(1.05rem,2vw,1.6rem)}
+.clock .dt,.clock .pl{font-size:clamp(.85rem,1.3vw,1.05rem);color:var(--mute)}
+.menu{position:absolute;z-index:3;left:0;right:0;bottom:calc(1.6rem + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;align-items:center;height:1.5em;overflow:hidden;padding:0 6vw;font-size:clamp(1.1rem,2vw,1.7rem);font-weight:400;line-height:1;letter-spacing:.04em;color:var(--plate-fg);background:var(--plate);transition:background-color .9s,color .9s}
+.menu::before{content:"";position:absolute;inset:0;background-image:var(--pgrain);opacity:.55;pointer-events:none}
+.menu a{padding:0 0 .04em;border-bottom:1px solid transparent;transition:border-color .25s}
+.menu a:hover{border-bottom-color:var(--plate-fg)}
+
+/* contact: its own page, in the same light */
+.cbg{position:absolute;inset:0}
+.cbg .d{background:linear-gradient(180deg,#D3D6DB 0,#DCD6DC 28%,#E3C7CB 60%,#EED6C4 86%,#F5E4D0 100%)}
+.cbg .t{background:linear-gradient(180deg,#12131C 0,#1B2A41 34%,#4A3B4E 68%,#8B5742 100%)}
+.cpage{display:none;position:absolute;inset:0;z-index:1;overflow-y:auto;padding:calc(var(--hd) + 1rem) 6vw 3rem}
+.scene[data-view="contact"] .cpage{display:flex;animation:cin .8s ease both}
+.scene[data-sub]>.sky,.scene[data-sub]>.ground{display:none}
+@keyframes cin{from{opacity:0}to{opacity:1}}
+.cwrap{position:relative;width:100%;max-width:34rem;margin:auto}
+.c-icons{display:flex;justify-content:center;gap:2.4rem;margin-bottom:2.2rem}
+.c-icons a{display:flex;flex-direction:column;align-items:center;gap:.35rem;color:var(--mute);transition:color .3s}
+.c-icons a:hover,.c-icons a:focus-visible{color:var(--fg)}
+.c-icons svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
+.c-form{display:flex;flex-direction:column}
+.c-form input,.c-form textarea{font:inherit;font-size:1rem;font-weight:400;color:var(--fg);background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:.85rem 0 .5rem;outline:none;resize:none;width:100%}
+.c-form input::placeholder,.c-form textarea::placeholder{color:var(--mute);opacity:1}
+.c-form input:focus,.c-form textarea:focus{box-shadow:0 1px 0 var(--fg)}
+.c-act{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1.5rem}
+.c-act .note{font-size:clamp(.85rem,1.3vw,1.05rem);font-weight:400;color:var(--mute);max-width:14rem;line-height:1.3}
+.btn{display:inline-flex;align-items:center;gap:.7rem;border:1px solid var(--fg);padding:.8rem 1.5rem;font-size:1.1rem;line-height:1;white-space:nowrap;transition:background .25s,color .25s}
+.btn::after{content:"\2192";transition:transform .25s}
+.btn:hover,.btn:focus-visible{background:var(--fg);color:var(--inv)}
+.btn:hover::after{transform:translateX(5px)}
+.btn:active{transform:translateY(1px)}
+.scene[data-sub] .menu{display:none}
+.scene[data-sub] #wm{display:none}
+.sunmini{display:none;position:absolute;z-index:3;--lw:clamp(2.5rem,4.2vw,3.2rem);--ch:calc(1.4*(clamp(1.05rem,2vw,1.6rem) + 2*clamp(.85rem,1.3vw,1.05rem)));top:calc(1.4rem + env(safe-area-inset-top,0px) + .5rem + (var(--ch) - var(--lw)*1.104)/2);left:6vw;width:var(--lw);aspect-ratio:2500/2760;background:var(--fg);-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat;transition:background-color .9s,opacity .3s}
+.scene[data-sub] .sunmini{display:block}
+.sunmini:hover{opacity:.7}
+/* one long horizon under the whole header, the sun resting on it at the left */
+.scene[data-sub] .top{align-items:flex-end}
+.scene[data-sub] .top::after{content:"";position:absolute;left:6vw;right:6vw;bottom:-.7rem;border-bottom:1px solid var(--line)}
+.scene[data-sub] .top>div:first-child{margin-bottom:-.7rem}
+.sunmini:focus-visible{opacity:.7;outline:none}
+@media (max-width:760px){.cpage{padding-top:var(--hd)}.c-act{flex-wrap:wrap}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* shop: every piece is a tiny horizon, the sun sinking or rising by the hour */
+.btn[hidden]{display:none}
+.sbg{display:none;z-index:0}
+.scene[data-view="shop"] .sbg,.scene[data-view="film"] .sbg,.scene[data-view="lookbook"] .sbg{display:block}
+.spage{display:none;position:absolute;inset:calc(var(--hd) + env(safe-area-inset-top,0px)) 0 0;z-index:1;overflow-y:auto;padding:2rem 6vw 3rem}
+.scene[data-view="shop"] .spage{display:block;animation:cin .8s ease both}
+.sh{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;max-width:68rem;margin:0 auto 2.2rem;font-size:clamp(1.1rem,2vw,1.7rem);font-weight:400}
+.sh .voice{font-size:1.2em}
+.bag{display:flex;align-items:center;gap:1.2rem}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(14.5rem,1fr));gap:2.6rem 2rem;max-width:68rem;margin:0 auto}
+.pic{position:relative;aspect-ratio:4/5;container-type:size;overflow:hidden;--D:58cqw;--sx:50%;--k:var(--k0)}
+.pic .sky .sun{transform:translateY(calc(var(--sunY) + var(--k)))}
+.pic .ground .sun{transform:scaleY(-1) translateY(calc(var(--sunY) + var(--k)))}
+.card:not(.set):hover .pic,.card:not(.set):focus-within .pic,.card.in .pic{--k:calc(var(--k0)*.3)}
+.meta,.sub{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.meta{margin-top:.9rem;font-size:clamp(1.1rem,2vw,1.35rem);font-weight:400;line-height:1.3}
+.pr{color:var(--mute);font-size:.9em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sub{margin-top:.15rem;color:var(--mute);font-size:1.05rem}
+.add{font:inherit;font-weight:400;color:var(--fg);background:none;border:0;border-bottom:1px solid transparent;padding:0;cursor:pointer;transition:border-color .25s}
+.add:hover,.add:focus-visible,.card.in .add{border-bottom-color:var(--fg);outline:none}
+.card.set .add{color:var(--mute);cursor:default;border-color:transparent}
+
+/* bag icon + drawer */
+.trow{display:flex;justify-content:flex-end;align-items:center;gap:.9rem}
+.bagbtn{display:inline-flex;align-items:center;gap:.3rem;font:inherit;font-size:inherit;font-weight:400;font-variant-numeric:tabular-nums;color:var(--fg);background:none;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.clock .pl{display:flex;justify-content:flex-end;align-items:center;gap:.7rem}
+.bagbtn svg{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
+.bagbtn:focus-visible{outline:2px solid var(--fg);outline-offset:5px}
+.scrim{position:absolute;inset:0;z-index:4;background:rgba(18,19,28,.35);opacity:0;pointer-events:none;transition:opacity .5s}
+.drawer{--dl:color-mix(in srgb,var(--plate-fg) 28%,transparent);position:absolute;z-index:5;top:0;right:0;bottom:0;width:min(24rem,100%);display:flex;flex-direction:column;background:var(--plate);color:var(--plate-fg);padding:calc(1.4rem + env(safe-area-inset-top,0px)) 1.6rem calc(1.4rem + env(safe-area-inset-bottom,0px));transform:translateX(100%);visibility:hidden;transition:transform .6s cubic-bezier(.5,0,.2,1),visibility 0s .6s,background-color .9s,color .9s}
+.drawer::before{content:"";position:absolute;inset:0;background-image:var(--pgrain);opacity:.55;pointer-events:none}
+.drawer>*{position:relative}
+.scene[data-bag] .scrim{opacity:1;pointer-events:auto}
+.scene[data-bag] .drawer{transform:none;visibility:visible;transition-delay:0s}
+.dh{display:flex;justify-content:space-between;align-items:center;font-weight:400}
+.dh .voice{font-size:1.9rem}
+.dx{font:inherit;font-size:2rem;line-height:1;color:inherit;background:none;border:0;cursor:pointer;padding:0 .2rem}
+.dl{flex:1;overflow-y:auto;margin:1.2rem 0;border-top:1px solid var(--dl)}
+.it{display:flex;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--dl);font-weight:400;font-size:1.15rem;line-height:1.3}
+.mini{flex:none;width:2.6rem;height:1.3rem;border-radius:50% 50% 0 0/100% 100% 0 0;background:radial-gradient(circle at 50% 100%,#FDF0DC 0,#F4D7A6 28%,#E1AF74 70%,#E3C7CB 100%)}
+.ii{flex:1}
+.ip{opacity:.7;font-size:.95rem}
+.rm{font:inherit;font-size:.95rem;color:inherit;opacity:.7;background:none;border:0;border-bottom:1px solid transparent;padding:0;cursor:pointer}
+.rm:hover,.rm:focus-visible{opacity:1;border-bottom-color:currentColor;outline:none}
+.em{padding:1.4rem 0;font-size:1.3rem;opacity:.8}
+.tot{display:flex;justify-content:space-between;font-size:1.2rem;font-weight:400;margin-bottom:1.1rem}
+.drawer .btn{width:100%;justify-content:center;border-color:var(--plate-fg);color:var(--plate-fg)}
+.drawer .btn:hover,.drawer .btn:focus-visible{background:var(--plate-fg);color:var(--plate)}
+.btn[aria-disabled="true"]{opacity:.35;pointer-events:none}
+
+/* shop v2: editorial cards, product view, bag with quantities */
+.sgrid{align-items:start}
+.card{display:block;cursor:pointer;-webkit-tap-highlight-color:transparent;outline:none}
+.card:nth-child(even){margin-top:2.6rem}
+@media (max-width:560px){.card:nth-child(even){margin-top:0}}
+.card .pic{transition:transform .5s cubic-bezier(.3,.7,.3,1),box-shadow .5s}
+.card:not(.set):hover .pic,.card:not(.set):focus-visible .pic{transform:translateY(-.35rem);box-shadow:0 .9rem 1.6rem rgba(0,0,0,.2)}
+.card:focus-visible .pic{outline:2px solid var(--fg);outline-offset:4px}
+.card .hr{position:absolute;left:.9rem;top:.6rem;z-index:3;font-size:1.3rem;line-height:1.2}
+.card .so{position:absolute;right:.9rem;bottom:.7rem;z-index:3;font-size:1.2rem}
+.card.set .pic{opacity:.8}
+.dots{display:flex;gap:.4rem;margin-top:.55rem;min-height:.8rem}
+.dots i{width:.8rem;height:.8rem;border-radius:50%;border:1px solid var(--line)}
+.pv{position:absolute;inset:0;z-index:6;visibility:hidden;pointer-events:none;transition:visibility 0s .7s}
+.pv.on{visibility:visible;pointer-events:auto;transition-delay:0s}
+.pvbk{position:absolute;inset:0;background:color-mix(in srgb,var(--inv) 97%,transparent);opacity:0;transition:opacity .6s}
+.pv.on .pvbk{opacity:1}
+.pvx{position:absolute;top:calc(1rem + env(safe-area-inset-top,0px));right:1.4rem;display:grid;place-items:center;padding:.8rem;color:var(--fg);background:none;border:0;cursor:pointer;opacity:0;transition:opacity .4s}
+.pv.on .pvx{opacity:.85;transition-delay:.4s}
+.pv.on .pvx:hover,.pvx:focus-visible{opacity:1}
+.pvx:focus-visible{outline:2px solid var(--fg);outline-offset:-2px}
+.pvx svg{width:1.8rem;height:1.8rem;fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round}
+.pvin{position:absolute;left:50%;top:calc(5rem + env(safe-area-inset-top,0px));bottom:2rem;width:min(62rem,88vw);transform:translateX(-50%);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(1.5rem,5vw,4rem);align-items:center}
+.pvg{justify-self:center;width:min(100%,calc((100svh - 15rem)*.8))}
+.pvwrap{position:relative}
+.pvpic{width:100%;touch-action:pan-y}
+.pvpic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;user-select:none;-webkit-user-drag:none}
+.pvpic.sw1{animation:pvfade .45s ease both}
+@keyframes pvfade{from{opacity:.15}to{opacity:1}}
+.pva{position:absolute;top:50%;z-index:3;display:none;place-items:center;width:2.6rem;height:2.6rem;margin-top:-1.3rem;padding:0;color:var(--fg);background:color-mix(in srgb,var(--inv) 55%,transparent);border:0;border-radius:50%;cursor:pointer;opacity:0;transition:opacity .3s;-webkit-tap-highlight-color:transparent}
+.pva svg{width:1.3rem;height:1.3rem;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.pvap{left:.6rem}.pvan{right:.6rem}
+.pvg.multi .pva{display:grid}
+.pvwrap:hover .pva,.pva:focus-visible{opacity:1}
+.pva:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+@media (hover:none){.pva{opacity:.85}}
+.pvth{display:none;gap:.5rem;margin-top:.8rem;justify-content:center}
+.pvg.multi .pvth{display:flex}
+.pvtb{position:relative;flex:0 0 auto;width:3.2rem;aspect-ratio:4/5;padding:0;overflow:hidden;background:none;border:1px solid var(--line);cursor:pointer;opacity:.55;transition:opacity .25s,border-color .25s;-webkit-tap-highlight-color:transparent}
+.pvtb:hover,.pvtb:focus-visible{opacity:1;outline:none}
+.pvtb[aria-pressed="true"]{opacity:1;border-color:var(--fg)}
+.pvtb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pvtb .pic{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;--k:var(--k0);pointer-events:none}
+.pvinfo{padding:0 .5rem;opacity:0;transform:translateY(1rem);transition:opacity .5s,transform .6s cubic-bezier(.3,.7,.3,1)}
+.pv.on .pvinfo{opacity:1;transform:none;transition-delay:.35s}
+.pvn{margin:.1rem 0 .2rem;font-size:clamp(1.7rem,3.2vw,2.4rem);font-weight:400;line-height:1.2}
+.pvp{font-size:1.15rem;color:var(--mute);font-variant-numeric:tabular-nums}
+.pvs{margin:1rem 0 1.4rem;max-width:34ch;line-height:1.55}
+.pvl{font-size:.9rem;color:var(--mute);margin:0 0 .5rem;font-weight:400}
+.pvsw,.pvzs{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-bottom:1.4rem}
+.sw{width:1.9rem;height:1.9rem;border-radius:50%;border:1px solid var(--line);padding:0;cursor:pointer;background:var(--c);transition:box-shadow .25s}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--inv),0 0 0 3.5px var(--fg)}
+.sw:focus-visible,.zb:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.swn{font-size:1rem;color:var(--mute);margin-left:.3rem}
+.zb{font:inherit;font-size:1rem;font-weight:400;min-width:2.8rem;padding:.55rem .7rem;color:var(--fg);background:none;border:1px solid var(--line);cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.zb:hover{border-color:var(--fg)}
+.zb[aria-pressed="true"]{background:var(--fg);color:var(--inv);border-color:var(--fg)}
+button.btn{font:inherit;font-size:1.1rem;color:var(--fg);background:none;cursor:pointer}
+.spage:focus,.spage:focus-visible,.fpage:focus,.lpage:focus,.cpage:focus{outline:none}
+.pvmsg{min-height:1.5em;margin-top:.8rem;color:var(--mute);font-size:.95rem}
+.pvc{position:absolute;z-index:7;margin:0;aspect-ratio:auto;pointer-events:none;transition:left .8s cubic-bezier(.4,0,.1,1),top .8s cubic-bezier(.4,0,.1,1),width .8s cubic-bezier(.4,0,.1,1),height .8s cubic-bezier(.4,0,.1,1)}
+@media (max-width:760px){.pvin{display:flex;flex-direction:column;align-items:center;top:4.5rem;overflow-y:auto;gap:1.4rem;padding-bottom:2rem}.pvg{flex:none;width:min(60vw,calc((100svh - 27rem)*.8))}.pvinfo{width:100%}}
+.mini{flex:none;width:2.6rem;height:3.2rem;border-radius:0;background:var(--m,#D6D0C4);border:1px solid var(--dl)}
+.ii .sm{opacity:.7;font-size:.95rem}
+.qt{display:flex;align-items:center;gap:.2rem;margin-top:.4rem}
+.qt button{font:inherit;font-size:1.1rem;line-height:1;width:1.8rem;height:1.8rem;color:inherit;background:none;border:1px solid var(--dl);cursor:pointer}
+.qt button:hover,.qt button:focus-visible{border-color:currentColor;outline:none}
+.qt span{min-width:1.8rem;text-align:center;font-variant-numeric:tabular-nums}
+.ir{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem}
+.dfx{display:flex;flex-direction:column;margin-bottom:1rem}
+.dfx input,.dfx textarea{font:inherit;font-size:.95rem;font-weight:400;color:inherit;background:none;border:0;border-bottom:1px solid var(--dl);border-radius:0;padding:.6rem 0 .35rem;outline:none;resize:none;width:100%}
+.dfx input::placeholder,.dfx textarea::placeholder{color:inherit;opacity:.55}
+.dfx input:focus,.dfx textarea:focus{border-bottom-color:currentColor}
+.dn{margin-top:.8rem;font-size:.9rem;opacity:.7;text-align:center}
+
+/* cart drawer: icon and count instead of a title */
+.dhc{display:inline-flex;align-items:center;gap:.55rem;font-size:1.5rem;font-weight:400;font-variant-numeric:tabular-nums}
+.dhc svg{width:1.35em;height:1.35em;fill:none;stroke:currentColor;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
+/* checkout: its own page, details on the left, the order on the right */
+.scene[data-view="checkout"] .sbg{display:block}
+.kpage{--err:#a8341f;display:none;position:absolute;inset:calc(var(--hd) + env(safe-area-inset-top,0px)) 0 0;z-index:1;overflow-y:auto;padding:1.5rem 6vw 4rem}
+:root[data-season="twilight"] .kpage{--err:#f0a08c}
+.scene[data-view="checkout"] .kpage{display:block;animation:cin .8s ease both}
+.kw{max-width:68rem;margin:0 auto}
+.kw .sh{max-width:none}
+.kback{font-size:1rem;color:var(--mute);border-bottom:1px solid transparent;transition:border-color .25s,color .25s}
+.kback:hover,.kback:focus-visible{color:var(--fg);border-bottom-color:var(--fg);outline:none}
+.kprev{margin:0 0 1.8rem;padding:.8rem 1rem;border:1px dashed var(--line);font-size:.95rem;font-weight:400;color:var(--mute)}
+.kempty{padding:3rem 0;text-align:center;font-weight:400}
+.kempty[hidden],.kgrid[hidden],.kprev[hidden]{display:none}
+.kgrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(2rem,5vw,4.5rem);align-items:start}
+.kset{border:0;margin:0 0 2.4rem;padding:0;min-width:0}
+.kset legend{padding:0;margin-bottom:1.1rem;font-size:1.35rem;font-weight:400}
+.kset legend span{display:inline-block;width:1.8rem;color:var(--mute)}
+.kf{margin-bottom:1.1rem}
+.kf>label{display:block;font-size:.9rem;font-weight:400;color:var(--mute);margin-bottom:.1rem}
+.kf input,.kf select,.kf textarea{width:100%;font:inherit;font-size:1.05rem;font-weight:400;color:var(--fg);background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:.55rem 0;outline:none;transition:border-color .25s,box-shadow .25s}
+.kf textarea{resize:none}
+.kf input:focus,.kf select:focus,.kf textarea:focus{border-bottom-color:var(--fg);box-shadow:0 1px 0 var(--fg)}
+.kf [aria-invalid="true"]{border-bottom-color:var(--err)}
+.ksel{position:relative}
+.ksel select{appearance:none;-webkit-appearance:none;padding-right:1.6rem;cursor:pointer}
+.ksel select option,.ksel select optgroup{color:#1B2A41;background:#F5F1EA}
+.ksel::after{content:"";position:absolute;right:.25rem;top:50%;width:.5rem;height:.5rem;margin-top:-.4rem;border-right:1.5px solid var(--fg);border-bottom:1.5px solid var(--fg);transform:rotate(45deg);pointer-events:none}
+.kpf{display:flex;align-items:center;border-bottom:1px solid var(--line);transition:border-color .25s,box-shadow .25s}
+.kpf:focus-within{border-bottom-color:var(--fg);box-shadow:0 1px 0 var(--fg)}
+.kpf:has([aria-invalid="true"]){border-bottom-color:var(--err)}
+.kpf input{border:0;box-shadow:none!important}
+.kpre{padding-right:.6rem;font-weight:400;color:var(--mute)}
+.ke{min-height:0;margin-top:.3rem;font-size:.88rem;font-weight:400;color:var(--err)}
+.kchk{display:flex;gap:.7rem;align-items:flex-start;cursor:pointer;margin:.3rem 0 1rem;font-size:.98rem;font-weight:400}
+.kchk input{flex:none;width:1.1rem;height:1.1rem;margin:.2rem 0 0;accent-color:var(--fg)}
+.kopt{position:relative;display:flex;align-items:center;gap:.9rem;margin-bottom:.7rem;padding:.95rem 1rem;border:1px solid var(--line);cursor:pointer;transition:border-color .25s,background .25s}
+.kopt input{position:absolute;opacity:0;pointer-events:none}
+.kdot{flex:none;width:1.05rem;height:1.05rem;border:1px solid var(--fg);border-radius:50%;display:grid;place-items:center}
+.kopt:has(input:checked){border-color:var(--fg);background:color-mix(in srgb,var(--fg) 6%,transparent)}
+.kopt:has(input:checked) .kdot::after{content:"";width:.55rem;height:.55rem;border-radius:50%;background:var(--fg)}
+.kopt:focus-within{outline:2px solid var(--fg);outline-offset:3px}
+.kot{flex:1;min-width:0;font-weight:400}
+.kot small{display:block;color:var(--mute);font-size:.9rem}
+.kop{font-weight:400;font-variant-numeric:tabular-nums}
+.kn{margin:.3rem 0 1rem;font-size:.92rem;font-weight:400;color:var(--mute)}
+.kn[hidden],.kf[hidden]{display:none}
+.kpay{width:100%;justify-content:center;font-size:1.15rem;padding:1.05rem 1.5rem}
+.kmsg{margin-top:1rem;font-size:.98rem;font-weight:400;outline:none}
+.kmsg.pre{padding:1rem 1.1rem;border:1px solid var(--line);background:color-mix(in srgb,var(--inv) 70%,transparent)}
+.ksum{position:sticky;top:0;padding:1.6rem 1.5rem;background:color-mix(in srgb,var(--inv) 78%,transparent);border:1px solid var(--line);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.ksum h2{margin:0 0 .6rem;font-size:1.35rem;font-weight:400}
+.kit{display:flex;gap:1rem;align-items:center;padding:.85rem 0;border-bottom:1px solid var(--line)}
+.kth{position:relative;flex:none;width:2.8rem;height:3.4rem;background:var(--m,#D6D0C4);border:1px solid var(--line)}
+.kq{position:absolute;top:-.5rem;right:-.5rem;min-width:1.4rem;height:1.4rem;padding:0 .3rem;border-radius:1rem;background:var(--fg);color:var(--inv);font-size:.8rem;font-weight:400;display:grid;place-items:center}
+.kin{flex:1;min-width:0;font-weight:400}
+.kin small{display:block;color:var(--mute);font-size:.9rem}
+.kip{font-weight:400;font-variant-numeric:tabular-nums}
+.kr{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 0;font-weight:400;font-variant-numeric:tabular-nums}
+.kr small{margin-left:.4rem;color:var(--mute)}
+.kt{margin-top:.6rem;padding-top:.9rem;border-top:1px solid var(--line);font-size:1.25rem}
+.klink{margin-top:.8rem;font:inherit;font-size:.95rem;font-weight:400;color:var(--mute);background:none;border:0;border-bottom:1px solid var(--line);padding:0;cursor:pointer}
+.klink:hover,.klink:focus-visible{color:var(--fg);border-bottom-color:var(--fg);outline:none}
+@media (max-width:860px){.kgrid{grid-template-columns:1fr}.ksum{position:static;order:-1}.kpage{padding-inline:5vw}}
+
+/* header: one more line (policies) so the pages start a little lower */
+:root{--hd:9.6rem}
+.clock .cpol{display:inline-block;margin-top:.15rem;font-size:clamp(.85rem,1.3vw,1.05rem);color:var(--mute);border-bottom:1px solid transparent;transition:color .25s,border-color .25s}
+.clock .cpol:hover,.clock .cpol:focus-visible{color:var(--fg);border-bottom-color:currentColor;outline:none}
+.scene[data-hold][data-view="home"] .cpol{display:none}
+/* policies page */
+.scene[data-view="policies"] .sbg{display:block}
+.scene[data-hold][data-view="policies"] .hold,.scene[data-hold][data-view="policies"] .hfoot,.scene[data-hold][data-view="policies"] .hlogo{display:none}
+.ppage{display:none;position:absolute;inset:calc(var(--hd) + env(safe-area-inset-top,0px)) 0 0;z-index:1;overflow-y:auto;padding:0 6vw 5rem;scroll-behavior:smooth}
+.scene[data-view="policies"] .ppage{display:block;animation:cin .8s ease both}
+.pw{max-width:62rem;margin:0 auto;padding-top:1.5rem;display:grid;grid-template-columns:11rem minmax(0,1fr);gap:clamp(2rem,6vw,5rem);align-items:start}
+.ptoc{position:sticky;top:0;display:flex;flex-direction:column;font-weight:400}
+.ptoc a{position:relative;padding:.45rem 0 .45rem .9rem;border-left:1px solid var(--line);color:var(--fg);opacity:.5;transition:opacity .3s,padding .3s}
+.ptoc a::before{content:"";position:absolute;left:-1px;top:0;bottom:0;width:2px;background:var(--fg);transform:scaleY(0);transform-origin:top;transition:transform .35s}
+.ptoc a:hover,.ptoc a:focus-visible{opacity:1;outline:none}
+.ptoc a[aria-current="true"]{opacity:1;padding-left:1.3rem}
+.ptoc a[aria-current="true"]::before{transform:scaleY(1)}
+.pdoc{max-width:40rem;font-size:1.05rem;line-height:1.75;font-weight:400}
+.pdoc h1{margin:0 0 .3rem;font-size:clamp(1.9rem,3.8vw,2.7rem);font-weight:400;line-height:1.15}
+.pdoc .pd{margin:0 0 1.6rem;font-size:.95rem;color:var(--mute)}
+.pdoc section{margin:0 0 3.2rem}
+.pdoc h2{margin:0 0 1rem;font-size:1.55rem;font-weight:400;line-height:1.2}
+.pdoc h3{margin:1.7rem 0 .35rem;font-size:1.1rem;font-weight:400;color:var(--mute)}
+.pdoc p{margin:0 0 1rem}
+.pdoc ul,.pdoc ol{margin:0 0 1rem;padding-left:1.25rem}
+.pdoc li{margin:.3rem 0}
+.pdoc a{border-bottom:1px solid var(--line);transition:border-color .25s}
+.pdoc a:hover,.pdoc a:focus-visible{border-bottom-color:var(--fg);outline:none}
+.pbanner{margin:0 0 2.2rem;padding:.9rem 1rem;border:1px dashed var(--line);font-size:.95rem;color:var(--mute)}
+.ppage .todo{background:rgba(225,175,116,.5);color:var(--fg);padding:0 .2em}
+.ppage.final .todo{background:none;padding:0}
+.ppage.final .todo-note,.ppage.final .pbanner{display:none}
+.klegal{margin:1rem 0 0;font-size:.88rem;font-weight:400;color:var(--mute)}
+.klegal a,.hlegal a{border-bottom:1px solid currentColor}
+.hlegal{margin:.9rem 0 0;font-size:.85rem}
+.clegal{display:flex;justify-content:center;gap:1.4rem;margin-top:2.6rem;font-size:.9rem;font-weight:400;color:var(--mute)}
+.clegal a:hover,.clegal a:focus-visible{color:var(--fg);outline:none}
+@media (max-width:860px){
+.ppage{padding-inline:0}
+.pw{grid-template-columns:1fr;gap:0;padding-top:0}
+.pdoc{padding-inline:5vw}
+.ptoc{flex-direction:row;z-index:3;margin-bottom:1.4rem;padding:0 4vw;background:color-mix(in srgb,var(--inv) 93%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.ptoc a{flex:1;padding:.9rem .2rem;text-align:center;border-left:0;white-space:nowrap}
+.ptoc a[aria-current="true"]{padding-left:.2rem}
+.ptoc a::before{left:.4rem;right:.4rem;top:auto;bottom:-1px;width:auto;height:2px;transform:scaleX(0);transform-origin:left}
+.ptoc a[aria-current="true"]::before{transform:scaleX(1)}
+.mo{display:none}
+}
+
+/* film: video placeholders in a horizontal row, no text */
+.fpage{display:none;position:absolute;inset:calc(var(--hd) + env(safe-area-inset-top,0px)) 0 0;z-index:1;overflow-y:auto;padding:1rem 0 3rem}
+.scene[data-view="film"] .fpage{display:flex;animation:cin .8s ease both}
+.vrow{display:flex;gap:1.6rem;width:100%;margin-block:auto;padding:0 6vw 1rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:6vw;scrollbar-width:thin}
+.vid{flex:0 0 88vw;aspect-ratio:16/9;scroll-snap-align:start;--D:30cqw}
+.play{position:absolute;left:50%;top:50%;z-index:3;width:4.2rem;height:4.2rem;margin:-2.1rem 0 0 -2.1rem;display:grid;place-items:center;border:1px solid var(--fg);border-radius:50%;background:none;color:var(--fg);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .25s,color .25s,transform .25s}
+.play svg{width:1.3rem;height:1.3rem;fill:currentColor;margin-left:.15rem}
+.play:hover,.play:focus-visible{background:var(--fg);color:var(--inv);transform:scale(1.06)}
+.play:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
+.vid video{position:absolute;inset:0;z-index:4;width:100%;height:100%;object-fit:cover;background:#000}
+
+/* lookbook: an album that opens, the pages flip */
+.lpage{display:none;position:absolute;inset:calc(var(--hd) + env(safe-area-inset-top,0px)) 0 0;z-index:1;overflow:hidden;padding:2.4rem 6vw 2rem;flex-direction:column;align-items:center;justify-content:center}
+.scene[data-view="lookbook"] .lpage{display:flex;animation:cin .8s ease both}
+.bwrap{position:relative;width:min(88vw,calc(62svh*1.6));aspect-ratio:8/5}
+.bshadow{position:absolute;left:2%;right:2%;bottom:-3%;height:10%;background:rgba(18,19,28,.45);filter:blur(22px);border-radius:50%;transition:transform 1.1s cubic-bezier(.5,0,.2,1)}
+.book{position:absolute;inset:0;transition:transform 1.1s cubic-bezier(.5,0,.2,1)}
+.bwrap[data-s="0"] .book{transform:translateX(-25%)}
+.bwrap[data-s="0"] .bshadow,.bwrap[data-s="e"] .bshadow{transform:scaleX(.5)}
+.bwrap[data-s="e"] .book{transform:translateX(25%)}
+.leaf{position:absolute;top:0;left:50%;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transform:perspective(2400px) rotateY(0deg);transition:transform 1.1s cubic-bezier(.5,0,.2,1);cursor:pointer}
+.leaf.f{transform:perspective(2400px) rotateY(-180deg)}
+.bwrap[data-s="0"] .leaf:first-child:hover{transform:perspective(2400px) rotateY(-12deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.face.b{transform:rotateY(180deg)}
+.pg{aspect-ratio:auto;outline:1px solid var(--line);outline-offset:-1px}
+.face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover{container-type:size;overflow:hidden;background:var(--plate);transition:background-color .9s}
+.cover::before{content:"";position:absolute;inset:0;background-image:var(--pgrain);opacity:.55;pointer-events:none}
+.clogo{position:absolute;left:50%;top:50%;width:clamp(2.5rem,4.2vw,3.2rem);aspect-ratio:2500/2760;transform:translate(-50%,-50%);background:var(--plate-fg);-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat;transition:background-color .9s}
+.face.r::after,.face.l::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none}
+.face.r::after{background:linear-gradient(90deg,rgba(0,0,0,.18),transparent 8%)}
+.face.l::after{background:linear-gradient(270deg,rgba(0,0,0,.18),transparent 8%)}
+.bctl{display:flex;justify-content:center;gap:2.6rem;margin-top:1.6rem}
+.bb{display:grid;place-items:center;padding:.6rem;color:var(--fg);background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .25s}
+.bb svg{width:1.8rem;height:1.8rem;fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.bb[aria-disabled="true"]{opacity:.25;pointer-events:none}
+.bb:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+@media (max-width:700px){.bwrap{width:96vw}}
+
+/* album pages: scattered polaroids, binder rings, magnified view */
+.pp{background:var(--inv);overflow:hidden;outline:1px solid var(--line);outline-offset:-1px;transition:background-color .9s}
+.pp::before{content:"";position:absolute;inset:0;background-image:var(--grain);opacity:.5;pointer-events:none}
+.pol{position:absolute;aspect-ratio:1/1.22;padding:0;border:0;background:#FBF9F4;box-shadow:0 .35rem .9rem rgba(0,0,0,.28);transform:rotate(var(--r));transition:transform .35s cubic-bezier(.3,.7,.3,1),box-shadow .35s;cursor:zoom-in;-webkit-tap-highlight-color:transparent}
+.pol:hover,.pol:focus-visible{transform:rotate(var(--r)) scale(1.04);z-index:5;box-shadow:0 .7rem 1.4rem rgba(0,0,0,.32)}
+.pol:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.ph{position:absolute;left:7%;right:7%;top:6%;bottom:21%;aspect-ratio:auto;border:0}
+.pol.tp::before{content:"";position:absolute;z-index:2;top:-.6rem;left:50%;width:36%;height:1.2rem;margin-left:-18%;background:rgba(222,210,180,.72);transform:rotate(-3deg);box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.rings{position:absolute;left:50%;top:8%;bottom:8%;width:0;z-index:200;pointer-events:none;display:flex;flex-direction:column}
+.cs{flex:1 1 0;position:relative}
+.cs .coil{top:50%}
+.book{container-type:inline-size}
+.coil{position:absolute;left:0;width:calc(2.5cqw + 1.6rem);height:1.6rem;margin:-.8rem 0 0 calc(-1.25cqw - .8rem);overflow:visible;filter:drop-shadow(0 .15rem .12rem rgba(0,0,0,.5));-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 .6rem,#000 calc(100% - .6rem),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 .6rem,#000 calc(100% - .6rem),transparent 100%);clip-path:inset(-10px 0 -10px 0);transition:clip-path 1.1s cubic-bezier(.5,0,.2,1)}
+.bwrap[data-s="0"] .coil{clip-path:inset(-10px 0 -10px calc(50% - .3rem))}
+.bwrap[data-s="e"] .coil{clip-path:inset(-10px calc(50% - .3rem) -10px 0)}
+.coil path{fill:none;vector-effect:non-scaling-stroke}
+.coil .cd{stroke:#3b4046;stroke-width:4px}
+.coil .cw{stroke:#a7aeb4;stroke-width:3px}
+.coil .ch{stroke:#fff;stroke-width:1px;opacity:.95}
+.hl{--hr:rgba(0,0,0,.3);position:absolute;top:8%;bottom:8%;width:1.6rem;pointer-events:none;background:radial-gradient(ellipse .44rem .26rem at 50% 50%,#05060a 0 90%,transparent 100%),radial-gradient(ellipse .58rem .37rem at 50% 50%,var(--hr) 0 100%,transparent 100%);background-size:100% calc(100% / 15);background-repeat:repeat-y}
+:root[data-season="twilight"] .hl{--hr:rgba(255,255,255,.3)}
+:root[data-season="dawn"] .cover .hl{--hr:rgba(255,255,255,.28)}
+:root[data-season="twilight"] .cover .hl{--hr:rgba(0,0,0,.3)}
+.face.r .hl{left:2.5%}
+.face.l .hl{right:2.5%}
+.zl{position:absolute;inset:0;z-index:7;pointer-events:none}
+.zl.on{pointer-events:auto}
+.zbk{position:absolute;inset:0;background:rgba(18,19,28,.86);opacity:0;transition:opacity .6s}
+.zl.on .zbk{opacity:1}
+.zm{position:absolute;margin:0;cursor:default;pointer-events:none;will-change:transform;transition:transform .8s cubic-bezier(.4,0,.1,1),box-shadow .8s;box-shadow:0 .4rem 1rem rgba(0,0,0,.3)}
+.zl.on .zm{box-shadow:0 1.4rem 3.4rem rgba(0,0,0,.5)}
+.zx{position:absolute;top:calc(1rem + env(safe-area-inset-top,0px));right:1.4rem;display:grid;place-items:center;padding:.8rem;color:#F5F1EA;background:none;border:0;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .4s}
+.zl.x .zx{opacity:.85;pointer-events:auto}
+.zl.x .zx:hover,.zx:focus-visible{opacity:1}
+.zx:focus-visible{outline:2px solid #F5F1EA;outline-offset:-2px}
+.zx svg{width:1.8rem;height:1.8rem;fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round}
+
+/* holding page: the sky and sun with the clock only (no wordmark or menu bar). logo, sign-up and a way in sit on top in the current dawn or twilight colours */
+.hold,.hlogo,.pwm,.hfoot{display:none}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.scene[data-hold] #wm,.scene[data-hold] .menu,.scene[data-hold] .scrim,.scene[data-hold] .drawer,.scene[data-hold] .bagbtn{display:none}
+.scene[data-hold] .hlogo{display:block;position:absolute;z-index:3;--lw:clamp(2.5rem,4.2vw,3.2rem);--ch:calc(1.4*(clamp(1.05rem,2vw,1.6rem) + 2*clamp(.85rem,1.3vw,1.05rem)));top:calc(1.4rem + env(safe-area-inset-top,0px) + .5rem + (var(--ch) - var(--lw)*1.104)/2);left:6vw;width:var(--lw);aspect-ratio:2500/2760;border:0;padding:0;cursor:pointer;background:var(--fg);-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat;transition:background-color .9s,opacity .25s}
+.scene[data-hold] .hlogo:hover,.scene[data-hold] .hlogo:focus-visible{opacity:.7;outline:none}
+.scene[data-hold] .hold{display:flex;flex-direction:column;align-items:center;position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);width:min(40rem,90vw);text-align:center;color:var(--fg);text-shadow:0 0 14px var(--inv);font-family:"Source Serif 4",Georgia,serif;animation:cin 1s ease .4s both}
+.ht{margin:0;font-weight:400;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:.06em}
+.hp{margin:1.2rem 0 1.7rem;font-size:clamp(.95rem,1.6vw,1.15rem);line-height:1.5;color:color-mix(in srgb,var(--fg) 88%,transparent);text-wrap:balance}
+.hrow{display:flex;gap:.9rem;width:100%;max-width:26rem}
+.hold input{flex:1;min-width:0;font:inherit;font-size:1.05rem;color:var(--fg);background:transparent;border:1px solid color-mix(in srgb,var(--fg) 55%,transparent);border-radius:0;padding:.95rem 1.1rem;outline:none}
+.hold input::placeholder{color:color-mix(in srgb,var(--fg) 80%,transparent);opacity:1}
+.hold input:focus{border-color:var(--fg)}
+.hjoin{text-shadow:none;flex:none;display:inline-flex;align-items:center;font:inherit;font-size:1.05rem;letter-spacing:.04em;padding:0 1.5rem;background:var(--plate);color:var(--plate-fg);border:1px solid var(--plate);cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.hjoin:hover,.hjoin:focus-visible{background:transparent;color:var(--fg);border-color:var(--fg);outline:none}
+.hjoin:disabled{opacity:.5;cursor:default}
+.hmsg{margin-top:.6rem;font-size:.95rem;color:var(--fg)}
+.scene[data-hold] .hfoot{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;position:absolute;z-index:3;left:6vw;right:6vw;bottom:calc(1.6rem + env(safe-area-inset-bottom,0px));font-family:"Source Serif 4",Georgia,serif;font-size:.95rem;color:color-mix(in srgb,var(--fg) 90%,transparent);text-shadow:0 0 14px var(--inv)}
+.hfoot a,.hfoot button{font:inherit;color:inherit;background:none;border:0;border-bottom:1px solid currentColor;padding:0 0 .1rem;cursor:pointer;transition:color .25s}
+.hfoot a:hover,.hfoot button:hover,.hfoot a:focus-visible,.hfoot button:focus-visible{color:var(--fg);outline:none}
+.pwm{position:absolute;inset:0;z-index:6;align-items:center;justify-content:center;padding:1.2rem;background:rgba(18,19,28,.45);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.scene[data-hold] .pwm:not([hidden]){display:flex;animation:cin .3s ease both}
+.pwc{position:relative;width:min(40rem,100%);padding:3.4rem 2rem 2.6rem;background:var(--inv);color:var(--fg);border-radius:14px;text-align:center;font-family:"Source Serif 4",Georgia,serif;transition:background-color .9s,color .9s}
+.pwc h2{margin:0 0 1.6rem;font-weight:400;font-size:1.1rem;letter-spacing:.06em}
+.pwr{display:flex;gap:.6rem;max-width:32rem;margin:0 auto}
+.pwi{position:relative;flex:1;min-width:0;display:flex}
+.pwr input{flex:1;min-width:0;font:inherit;font-size:1.05rem;color:var(--fg);background:color-mix(in srgb,var(--fg) 9%,transparent);border:0;border-radius:6px;padding:1.1rem 4.4rem 1.1rem 1.4rem;outline:none}
+.pwr input::placeholder{color:color-mix(in srgb,var(--fg) 50%,transparent);opacity:1}
+.pwr input:focus{box-shadow:inset 0 0 0 2px var(--fg)}
+.pws{position:absolute;right:.9rem;top:50%;transform:translateY(-50%);font:inherit;font-size:.9rem;color:var(--mute);background:none;border:0;cursor:pointer}
+.pwb{flex:none;font:inherit;font-size:1.05rem;padding:0 2rem;color:var(--inv);background:var(--fg);border:0;border-radius:6px;cursor:pointer}
+.pwb:hover,.pwb:focus-visible{opacity:.85;outline:none}
+.pwx{position:absolute;top:.6rem;right:.9rem;background:none;border:0;font-size:1.7rem;line-height:1;color:var(--fg);cursor:pointer}
+.pwe{min-height:1.3em;margin-top:1rem;font-size:.95rem}
+@media (max-width:560px){.pwc{padding:3.6rem 1.5rem 1.6rem}.pwc h2{margin-bottom:2rem}.pwr{flex-direction:column;gap:1.1rem}.pwr input{padding-top:1.15rem;padding-bottom:1.15rem}.pwb{width:100%;padding:1.1rem 2rem}.pwe{margin-top:1.2rem}}
+.pwc.bad{animation:shk .4s}
+@keyframes shk{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+@media (prefers-reduced-motion:reduce){.pwc.bad{animation:none}}
+.bagbtn[hidden]{display:none}
+
+/* intro: the plates roll in from opposite sides, the words follow */
+.intro #wm{animation:rollL 1.5s cubic-bezier(.5,0,.2,1) both}
+.intro #wm span{display:inline-block;animation:follL 1.3s cubic-bezier(.5,0,.2,1) .55s both}
+.intro .menu{animation:rollR 1.5s cubic-bezier(.5,0,.2,1) .25s both}
+.intro .menu a{animation:follR 1.2s cubic-bezier(.5,0,.2,1) both}
+.intro .menu a:nth-child(1){animation-delay:.8s}
+.intro .menu a:nth-child(2){animation-delay:.9s}
+.intro .menu a:nth-child(3){animation-delay:1s}
+.intro .menu a:nth-child(4){animation-delay:1.1s}
+@keyframes rollL{from{transform:translateX(-100%)}}
+@keyframes rollR{from{transform:translateX(100%)}}
+@keyframes follL{from{transform:translateX(-40vw);opacity:0}}
+@keyframes follR{from{transform:translateX(40vw);opacity:0}}
+</style>
+</head>
+<body>
+<main class="scene intro">
+<div class="sky">
+<i class="lay d"></i><i class="lay t"></i>
+<div class="glow"><i class="lay d"></i><i class="lay t"></i></div>
+<div class="sun"><i class="lay d"></i><i class="lay t"></i></div>
+</div>
+<div class="ground">
+<i class="lay d"></i><i class="lay t"></i>
+<div class="sun" aria-hidden="true"><i class="lay d"></i><i class="lay t"></i></div>
+</div>
+<section class="cpage" id="contact" aria-label="Contact">
+<div class="cbg" aria-hidden="true"><i class="lay d"></i><i class="lay t"></i></div>
+<div class="cwrap">
+<div class="c-icons">
+<a href="mailto:ibururukgl@gmail.com" title="ibururukgl@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7.5l8.5 6 8.5-6"/></svg></a>
+<a href="https://instagram.com/1bururu" target="_blank" rel="noopener" title="@1bururu" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6"/></svg></a>
+<a href="https://wa.me/250786214800" target="_blank" rel="noopener" title="+250 786 214 800" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.3 18.8L4 20z"/><path d="M9.3 8.6c.3 2.6 2.5 4.9 5.2 5.3l1.1-1.2-1.8-.9-.8.7c-1-.4-1.9-1.3-2.3-2.3l.7-.8-.9-1.8-1.2 1z"/></svg></a>
+</div>
+<div class="c-form">
+<input id="cn" type="text" placeholder="name" aria-label="Your name" autocomplete="name">
+<input id="ce" type="email" placeholder="email" aria-label="Your email" autocomplete="email">
+<textarea id="cm" rows="3" placeholder="message" aria-label="Your message"></textarea>
+<div class="c-act"><span class="note">opens your email app with the message ready</span><a id="send" class="btn" href="mailto:ibururukgl@gmail.com">send</a></div>
+</div>
+<nav class="clegal" aria-label="Policies"><a href="#terms">terms</a><a href="#shipping">shipping</a><a href="#returns">returns</a><a href="#privacy">privacy</a></nav>
+</div>
+</section>
+<div class="cbg sbg" aria-hidden="true"><i class="lay d"></i><i class="lay t"></i></div>
+<section class="spage" id="shop" aria-label="Shop">
+<div class="sgrid" id="sgrid"></div>
+</section>
+<section class="fpage" id="film" aria-label="Film"><div class="vrow" id="vrow"></div></section>
+<section class="lpage" id="lookbook" aria-label="Lookbook"><div class="bwrap" id="bwrap" data-s="0"><div class="bshadow"></div><div class="book" id="book"></div></div>
+<div class="bctl"><button class="bb" id="bprev" aria-label="Previous page" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8"/></svg></button><button class="bb" id="bnext" aria-label="Next page" aria-disabled="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8"/></svg></button></div></section>
+<section class="kpage" id="checkout" aria-label="Checkout"><div class="kw">
+<div class="sh"><span class="voice">checkout</span><a class="kback" href="#shop">continue shopping</a></div>
+<div class="kprev" id="kprev" hidden>Preview: payments are not connected yet, so no order will be placed.</div>
+<div class="kempty" id="kempty" hidden><p>Your cart is empty.</p><a class="btn" href="#shop">back to the shop</a></div>
+<div class="kgrid" id="kgrid">
+<form class="kform" id="kform" novalidate>
+<fieldset class="kset"><legend><span>1</span>Contact</legend>
+<div class="kf"><label for="knm">Full name</label><input id="knm" name="name" autocomplete="name" aria-describedby="knm-e"><div class="ke" id="knm-e"></div></div>
+<div class="kf"><label for="kem">Email</label><input id="kem" name="email" type="email" inputmode="email" autocomplete="email" aria-describedby="kem-e"><div class="ke" id="kem-e"></div></div>
+<div class="kf"><label for="kph">Phone number</label><div class="kpf"><span class="kpre">+250</span><input id="kph" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="78x xxx xxx" aria-describedby="kph-e"></div><div class="ke" id="kph-e"></div></div>
+<label class="kchk"><input type="checkbox" id="kmk"><span>Email me about new drops</span></label>
+</fieldset>
+<fieldset class="kset"><legend><span>2</span>Delivery</legend>
+<div class="kf"><label for="kdi">District</label><div class="ksel"><select id="kdi" name="district" autocomplete="address-level2" aria-describedby="kdi-e"></select></div><div class="ke" id="kdi-e"></div></div>
+<div class="kf"><label for="kse">Sector</label><input id="kse" name="sector" autocomplete="address-level3" aria-describedby="kse-e"><div class="ke" id="kse-e"></div></div>
+<div class="kf"><label for="kad">Street, house number or landmark</label><input id="kad" name="address" autocomplete="street-address" aria-describedby="kad-e"><div class="ke" id="kad-e"></div></div>
+<div class="kf"><label for="kno">Delivery notes (optional)</label><textarea id="kno" name="notes" rows="2"></textarea></div>
+<label class="kopt"><input type="radio" name="ship" value="flat" checked><span class="kdot"></span><span class="kot">Flat rate delivery<small>Anywhere in Rwanda</small></span><span class="kop" id="kshipc"></span></label>
+</fieldset>
+<fieldset class="kset"><legend><span>3</span>Payment</legend>
+<div id="kpm"></div>
+<div id="kmo"><label class="kchk"><input type="checkbox" id="ksame" checked><span>Pay with the number above</span></label>
+<div class="kf" id="kmof" hidden><label for="kmp">Mobile money number</label><div class="kpf"><span class="kpre">+250</span><input id="kmp" type="tel" inputmode="tel" placeholder="78x xxx xxx" aria-describedby="kmp-e"></div><div class="ke" id="kmp-e"></div></div>
+<p class="kn">You will approve the payment on your phone.</p></div>
+<p class="kn" id="kcn" hidden>You will enter your card details on the payment provider&rsquo;s secure page, never on this site.</p>
+</fieldset>
+<button class="btn kpay" id="kpay" type="submit"><span id="kpl">pay</span></button>
+<p class="klegal">By paying you agree to our <a href="#terms">terms of sale</a>, <a href="#shipping">shipping</a> and <a href="#returns">returns</a> policies. See our <a href="#privacy">privacy policy</a>.</p>
+<div class="kmsg" id="kmsg" role="status" aria-live="polite" tabindex="-1"></div>
+</form>
+<aside class="ksum" aria-label="Order summary"><h2>Order summary</h2><div id="kitems"></div>
+<div class="kr"><span>Subtotal</span><span id="ksub"></span></div>
+<div class="kr"><span>Shipping<small>flat rate</small></span><span id="kship"></span></div>
+<div class="kr kt"><span>Total</span><span id="ktot"></span></div>
+<button class="klink" id="kedit" type="button">edit cart</button></aside>
+</div></div></section>
+<section class="ppage" id="policies" aria-label="Policies"><div class="pw">
+<nav class="ptoc" id="ptoc" aria-label="Policies"><a href="#terms">Terms<span class="mo"> of sale</span></a><a href="#shipping">Shipping</a><a href="#returns">Returns</a><a href="#privacy">Privacy</a></nav>
+<article class="pdoc">
+<h1>Policies</h1>
+<p class="pd">Last updated <span data-v="updated"></span></p>
+<div class="pbanner" id="pbanner">Draft: this page is a starting point, not legal advice. The highlighted details still need your confirmation, and a Rwandan lawyer should read it before launch. Set POLICY.draft to false in the script when it is final.</div>
+
+<section id="p-terms" data-h="#terms"><h2>Terms of sale</h2>
+<p>These terms apply to every order placed on this website. By placing an order you agree to them.</p>
+<h3>Who we are</h3>
+<p>IBURURU is a clothing brand based in Kigali, Rwanda.<span id="plegal" hidden> Registered as <span data-v="legalName"></span>.</span><span class="todo-note" id="pnote"> <mark class="todo">Add your registered business name and tax number in POLICY.legalName.</mark></span></p>
+<h3>Prices</h3>
+<p>All prices are in Rwandan francs (rwf). Delivery is added at checkout, and the total you see before you pay is the total you pay. <span class="todo-note"><mark class="todo">Say here whether prices include VAT.</mark></span></p>
+<h3>Orders</h3>
+<p>Placing an order is an offer to buy. It becomes a confirmed order when we have received your payment and sent you a confirmation by email. Our pieces are made in small quantities, so if an item turns out to be unavailable after you have paid, we will tell you and refund you in full. If we cannot fulfil an order for another reason, such as a pricing error, we may cancel it and refund you in full.</p>
+<h3>Payment</h3>
+<p>You pay online at checkout, by mobile money or by card. Payments are handled by our payment provider. We do not see or store your card number or your mobile money PIN. If a payment fails, the order is not placed.</p>
+<h3>Colors and sizing</h3>
+<p>We do our best to show colors accurately, but screens differ, so a piece can look slightly different in person. Each piece lists its sizes and fit.</p>
+<h3>Cancelling an order</h3>
+<p>Write to us as soon as you can. If your order has not been sent yet, we will cancel it and refund you. Once it has been sent, our returns policy applies.</p>
+<h3>Governing law</h3>
+<p>These terms are governed by the laws of Rwanda.</p>
+<h3>Changes</h3>
+<p>We may update these terms. The date at the top shows the latest version, and the version in place when you ordered applies to your order.</p>
+</section>
+
+<section id="p-shipping" data-h="#shipping"><h2>Shipping</h2>
+<p>We deliver anywhere in Rwanda for a flat rate of <span data-v="shipFee"></span>. The fee is added at checkout. We do not ship outside Rwanda yet.</p>
+<p>Delivery usually takes <span data-v="deliveryDays"></span> after your payment is confirmed. We will message you when your order is on its way.</p>
+<h3>Delivery details</h3>
+<p>Please give a full delivery address (your district, your sector and a street, house number or landmark) and a phone number that works. The delivery person will call you on arrival. If we cannot reach you, we will contact you to arrange another delivery, and an extra delivery fee may apply.</p>
+<h3>Late or missing orders</h3>
+<p>If your order has not arrived within the delivery time, write to us with your order number and we will find out where it is.</p>
+<h3>Damaged on arrival</h3>
+<p>Check your parcel when it arrives. If something is damaged, take a photo and contact us within <span data-v="faultyDays"></span> days. See Returns below.</p>
+</section>
+
+<section id="p-returns" data-h="#returns"><h2>Returns and exchanges</h2>
+<p>We want you to love what you ordered. If it is not right, you can return it within <span data-v="returnDays"></span> days of delivery.</p>
+<h3>What can be returned</h3>
+<p>Items must be unworn, unwashed and in their original condition, with any labels still attached. <span class="todo-note"><mark class="todo">List anything that cannot be returned, such as final-sale pieces or prints.</mark></span></p>
+<h3>How to return an item</h3>
+<ol>
+<li>Write to us by email or on WhatsApp with your order number and the item you are returning.</li>
+<li>We will reply with the address to send it to.</li>
+<li>Send the item back. You pay for the return delivery, unless the item is faulty or we sent the wrong one. <span class="todo-note"><mark class="todo">Confirm who pays for return delivery.</mark></span></li>
+</ol>
+<h3>Exchanges</h3>
+<p>If a size does not fit, we will exchange it for another size when it is in stock. Because our pieces are made in limited quantities, we cannot always promise a replacement. If we cannot exchange it, we will refund you.</p>
+<h3>Refunds</h3>
+<p>Once we have received and checked your return, we will refund the price of the item to the payment method you used (mobile money or card) within <span data-v="refundDays"></span> days. Delivery fees are refunded only if the item was faulty or the wrong one.</p>
+<h3>Faulty or wrong items</h3>
+<p>If you receive a faulty or incorrect piece, contact us within <span data-v="faultyDays"></span> days of delivery, with photos. We will replace it or refund you, and we pay for the return delivery.</p>
+</section>
+
+<section id="p-privacy" data-h="#privacy"><h2>Privacy</h2>
+<p>We respect your privacy. We handle your personal data in accordance with Rwanda&rsquo;s Law No. 058/2021 of 13/10/2021 relating to the protection of personal data and privacy. This page explains what we collect and why.</p>
+<p class="todo-note"><mark class="todo">Check with a lawyer whether you must register with the National Cyber Security Authority (NCSA) as a data controller, and where your sign-up and order data is stored. The law restricts storing personal data outside Rwanda without NCSA authorisation, which matters for form, email and hosting services.</mark></p>
+<h3>What we collect</h3>
+<ul>
+<li>When you join the list: your email address.</li>
+<li>When you order: your name, email, phone number, delivery address and notes, the items you ordered, your payment method, and the mobile money number if you use one.</li>
+<li>In your browser: your cart, the details you type at checkout and your light or dark setting are saved on your own device so you do not have to type them again. We do not use advertising or tracking cookies. <span class="todo-note"><mark class="todo">Update this if you add analytics.</mark></span></li>
+</ul>
+<h3>Why we use it</h3>
+<ul>
+<li>To take payment, prepare and deliver your order, and contact you about it.</li>
+<li>To send you news of new drops, only if you joined the list or ticked the box at checkout. You can unsubscribe at any time.</li>
+<li>To keep the records we are required to keep, and to protect the site from fraud and misuse.</li>
+</ul>
+<h3>Who we share it with</h3>
+<p>Only the people who help us run your order: our payment provider (to process your payment), our delivery partners (your name, phone number and address), and our website and email services. We never sell your data. <span class="todo-note"><mark class="todo">Name your payment provider, delivery partner and services, and say where they store data.</mark></span></p>
+<h3>How long we keep it</h3>
+<p>We keep order records for as long as we need them to run the business and to meet legal and tax duties. <span class="todo-note"><mark class="todo">Say how long, for example 5 years.</mark></span> Email-list addresses are kept until you unsubscribe.</p>
+<h3>Your rights</h3>
+<p>You can ask us to show you the data we hold about you, to correct it, to delete it, or to stop using it for marketing. Write to us at <a data-mail href="#privacy"><span data-v="email"></span></a> and we will reply. If you are not happy with how we handle your data, you can also complain to Rwanda&rsquo;s National Cyber Security Authority (NCSA).</p>
+<h3>Children</h3>
+<p>Our website is not meant for children under 16. If you are under 16, please ask a parent or guardian to order for you.</p>
+<h3>Security</h3>
+<p>We use secure payment providers and keep your details only where they are needed. No system is perfectly secure. If a breach affects your data, we will tell you and the authorities as the law requires.</p>
+</section>
+
+<section id="p-contact" data-h="#privacy"><h2>Contact</h2>
+<p>Questions about an order, a return or your data? Write to us.</p>
+<ul>
+<li>Email: <a data-mail href="#privacy"><span data-v="email"></span></a></li>
+<li>WhatsApp: <a data-wa href="#privacy" target="_blank" rel="noopener"><span data-v="phone"></span></a></li>
+<li>Instagram: <a href="https://instagram.com/1bururu" target="_blank" rel="noopener"><span data-v="instagram"></span></a></li>
+<li>Kigali, Rwanda</li>
+</ul>
+</section>
+</article></div></section>
+<header class="top">
+<div>
+<a id="wm" href="#home" title="Switch between dawn and twilight"><span>IBURURU</span></a>
+<a class="sunmini" href="#home" aria-label="ibururu, back to home"></a>
+</div>
+<div class="clock" aria-label="Local time in Kigali, Rwanda">
+<div class="trow"><div class="tm" id="ct"></div></div><div class="dt" id="cd"></div><div class="pl"><button class="bagbtn" id="bagbtn" aria-label="Open cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 3.5h2.6l2.2 11.2a1.5 1.5 0 0 0 1.5 1.2h8.2a1.5 1.5 0 0 0 1.5-1.1L20.5 7.5H6.2"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="16.5" cy="19.5" r="1.3"/></svg><span id="bn">0</span></button><span>Kigali, Rwanda</span></div>
+<a class="cpol" href="#policies">policies</a>
+</div>
+</header>
+<div class="hold" id="hold">
+<h1 class="ht">IBURURU</h1>
+<p class="hp" id="hnote"></p>
+<form class="hrow" id="hform" novalidate><label class="vh" for="hem">Email</label><input id="hem" name="email" type="email" placeholder="EMAIL" autocomplete="email"><button class="hjoin" id="hsub" type="submit">JOIN</button></form>
+<div class="hmsg" id="hmsg" role="status" aria-live="polite"></div>
+</div>
+<div class="hfoot"><a href="https://instagram.com/1bururu" target="_blank" rel="noopener">@1bururu</a><button type="button" id="hkn">I know the password</button><a class="hpol" href="#policies">policies</a></div>
+<button type="button" class="hlogo" id="hlogo" aria-label="IBURURU: switch between dawn and twilight" title="Switch between dawn and twilight" style="--logo:url(data:image/png;base64,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)"></button>
+<div class="pwm" id="pwm" role="dialog" aria-modal="true" aria-labelledby="pwt" hidden><div class="pwc" id="pwc"><button type="button" class="pwx" id="pwx" aria-label="Close">&times;</button><h2 id="pwt">ENTER STORE PASSWORD</h2><form class="pwr" id="pwf"><div class="pwi"><label class="vh" for="hpw">Password</label><input id="hpw" type="password" placeholder="*****" autocomplete="current-password"><button type="button" class="pws" id="hsh" aria-pressed="false">show</button></div><button class="pwb" id="hgo" type="submit">ENTER</button></form><div class="pwe" id="pwe" role="status"></div></div></div>
+<nav class="menu" aria-label="Main"><a href="#shop">shop</a><a href="#film">film</a><a href="#contact">contact</a><a href="#lookbook">lookbook</a></nav>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Cart">
+<div class="dh"><span class="dhc" role="img" aria-label="Cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 3.5h2.6l2.2 11.2a1.5 1.5 0 0 0 1.5 1.2h8.2a1.5 1.5 0 0 0 1.5-1.1L20.5 7.5H6.2"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="16.5" cy="19.5" r="1.3"/></svg><span id="dhn">0</span></span><button class="dx" id="dx" aria-label="Close cart">&times;</button></div>
+<div class="dl" id="dl"></div>
+<div class="df"><div class="tot"><span>subtotal</span><span id="tt">0 rwf</span></div><a id="ord" class="btn" href="#checkout" aria-disabled="true">checkout</a><div class="dn">Shipping calculated at checkout (Rwandan flat rate)</div></div>
+</aside>
+<div class="zl" id="zl"><div class="zbk"></div><button class="zx" id="zx" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
+<div class="pv" id="pv" role="dialog" aria-modal="true" aria-label="Piece"><div class="pvbk" id="pvbk"></div>
+<button class="pvx" id="pvx" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+<div class="pvin"><div class="pvg" id="pvg"><div class="pvwrap"><div class="pic pvpic" id="pvpic"></div><button class="pva pvap" id="pvprev" type="button" aria-label="Previous picture"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8"/></svg></button><button class="pva pvan" id="pvnext" type="button" aria-label="Next picture"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8"/></svg></button></div><div class="pvth" id="pvth"></div></div>
+<div class="pvinfo"><h2 class="pvn" id="pvn"></h2><div class="pvp" id="pvp"></div><p class="pvs" id="pvs"></p><div class="pvcol" id="pvcol"></div><div class="pvsz" id="pvsz"></div><button class="btn" id="pvadd" type="button" aria-disabled="false"><span id="pvl">add to cart</span></button><div class="pvmsg" id="pvmsg" role="status"></div></div></div></div>
+</main>
+<script>
+/* ============ THE DROP SWITCH ============
+   false = holding page (scene + header + email box + password), no nav, no cart, no sub-pages (typed #shop, #contact etc. are ignored)
+   true  = the full site, for everyone */
+var DROP_LIVE = false; // set to true when collection is live
+
+/* private access: a visitor who types this into the holding page sees the live site for that browser session (sessionStorage "ibururu_unlocked") */
+var DROP_PASSWORD = "yourpassword";
+
+/* holding page text and sign-up. DROP_NOTE = the line under IBURURU.
+   SIGNUP_ENDPOINT = URL of a form service that accepts a POST with an "email" field (Formspree, Buttondown, a Mailchimp form URL...). Leave "" to open an email draft instead. */
+var DROP_NOTE = "Collection coming soon. Leave your email and we\u2019ll tell you first.";
+var SIGNUP_ENDPOINT = "";
+
+/* ============ CHECKOUT ============
+   Orders are paid online (not through WhatsApp). The payment provider is Xentripay, to be connected later:
+   - SHIPPING_RWF   flat delivery fee for anywhere in Rwanda (PLACEHOLDER: set your real fee)
+   - PAYMENT_READY  false = the checkout works but only shows a preview message when someone pays. Set true once PAYMENT_ENDPOINT exists.
+   - PAYMENT_ENDPOINT  URL of YOUR server (not Xentripay directly). The page POSTs the order as JSON; your server recalculates the prices from its own list,
+                    creates the payment with Xentripay (secret keys live only on the server, never in this file), and replies with {"url": "..."} for the
+                    page to send the customer to. Xentripay then confirms the payment to your server (webhook), and your server marks the order as paid.
+   - PAY_METHODS    [id, title, note]. Keep only the methods your Xentripay account has switched on. */
+var SHIPPING_RWF = 3000;
+var PAYMENT_READY = false;
+var PAYMENT_ENDPOINT = "";
+var PAY_METHODS = [["momo","Mobile money","Pay from your mobile money wallet"],["card","Card","Pay with a bank card"]];
+
+/* ============ POLICIES (the #policies page: terms of sale, shipping, returns, privacy) ============
+   draft: true shows a "draft" banner and highlights the values listed in "confirm" so nothing unconfirmed slips through. Set it to false once you have checked
+   every sentence and a lawyer has read it. The numbers below are PLACEHOLDERS, not legal advice: set them to what you will really do. */
+var POLICY = {
+  draft: true,
+  updated: "31 October 2026",
+  legalName: "",            // registered business name and tax number, e.g. "IBURURU Ltd, TIN 000000000". Leave "" until you have it.
+  email: "ibururukgl@gmail.com",
+  phone: "+250 786 214 800",
+  instagram: "@1bururu",
+  deliveryDays: "2 to 5 working days",
+  returnDays: "7",          // days after delivery that a customer can return an item
+  refundDays: "7",          // days to refund after you receive the return
+  faultyDays: "7",          // days after delivery to report a faulty or wrong item
+  confirm: ["deliveryDays","returnDays","refundDays","faultyDays"]
+};
+
+/* SECURITY NOTE: this is a front-end gate only. The password and the whole site are in this file, so anyone who views the source or
+   opens dev tools can get past it. It is fine for keeping casual visitors out before launch. If the site must be truly private, protect it on the host:
+   - Apache: add to .htaccess   AuthType Basic / AuthName "IBURURU" / AuthUserFile /full/path/.htpasswd / Require valid-user   (create the file with: htpasswd -c .htpasswd name)
+   - Netlify: Site configuration > Access & security > Visitor access (password protection; on paid plans), or a _headers/edge function that checks Basic Auth
+   - Vercel: Project Settings > Deployment Protection > Password Protection (paid plans), or middleware that returns 401 with WWW-Authenticate: Basic
+   - Nginx: auth_basic "IBURURU"; auth_basic_user_file /etc/nginx/.htpasswd; */
+(function(){
+var root=document.documentElement;
+var season=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"twilight":"dawn";
+root.setAttribute("data-season",season);
+document.getElementById("wm").addEventListener("click",function(e){
+e.preventDefault();season=season==="dawn"?"twilight":"dawn";root.setAttribute("data-season",season)});
+var scene=document.querySelector(".scene");setTimeout(function(){scene.classList.remove("intro")},3000);
+var unlockedMem=false;
+function unlocked(){try{if(sessionStorage.getItem("ibururu_unlocked")==="true")return true}catch(e){}return unlockedMem}
+function isLive(){return DROP_LIVE===true||unlocked()}
+var POLH=["#policies","#terms","#shipping","#returns","#privacy"];
+/* cart button: always on the shop page; on every other page only when the cart has at least one item; never on the holding page */
+function cartVis(){var bb=document.getElementById("bagbtn");if(!bb)return;var n=0;if(typeof bag!=="undefined"&&bag)for(var i=0;i<bag.length;i++)n+=bag[i].q;
+bb.hidden=!(isLive()&&(scene.getAttribute("data-view")==="shop"||n>0))}
+function view(){var live=isLive(),h=location.hash,pol=POLH.indexOf(h)>-1,v=pol?"policies":!live?"home":h==="#contact"?"contact":h==="#shop"?"shop":h==="#film"?"film":h==="#lookbook"?"lookbook":h==="#checkout"?"checkout":"home";
+if(!live&&h&&h!=="#home"&&!pol){try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}}
+if(live)scene.removeAttribute("data-hold");else scene.setAttribute("data-hold","");
+scene.setAttribute("data-view",v);scene.removeAttribute("data-bag");scene.removeAttribute("data-zoom");if(v==="home")scene.removeAttribute("data-sub");else scene.setAttribute("data-sub","");Array.prototype.forEach.call(scene.children,function(c){c.inert=live?false:!c.matches(".top,.hold,.hfoot,.pwm,.hlogo,.sky,.ground,.ppage")});if(pol)polGo(h);cartVis()}
+window.addEventListener("hashchange",view);view();
+
+/* holding page: join by email, theme switch, and the private password window */
+var $h=function(i){return document.getElementById(i)},hform=$h("hform"),hem=$h("hem"),hsub=$h("hsub"),hmsg=$h("hmsg"),hkn=$h("hkn"),pwm=$h("pwm"),pwc=$h("pwc"),hpw=$h("hpw"),pwe=$h("pwe"),hsh=$h("hsh");
+$h("hnote").textContent=DROP_NOTE;
+
+function flip(){season=season==="dawn"?"twilight":"dawn";root.setAttribute("data-season",season)}
+$h("hlogo").addEventListener("click",flip);
+hform.addEventListener("submit",function(e){e.preventDefault();var em=hem.value.trim();
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){hmsg.textContent="Please enter a valid email.";hem.focus();return}
+if(!SIGNUP_ENDPOINT){hmsg.textContent="Your email app should open. Press send to finish.";location.href="mailto:ibururukgl@gmail.com?subject="+encodeURIComponent("subscribe me to ibururu")+"&body="+encodeURIComponent("please add me to the list: "+em);return}
+hsub.disabled=true;hmsg.textContent="One moment\u2026";
+fetch(SIGNUP_ENDPOINT,{method:"POST",headers:{Accept:"application/json"},body:new FormData(hform)}).then(function(r){if(!r.ok)throw 0;hform.hidden=true;hmsg.textContent="You\u2019re on the list. Thank you."}).catch(function(){hsub.disabled=false;hmsg.textContent="Something went wrong. Try again or write to ibururukgl@gmail.com."})});
+function bg(on){[".top",".hold",".hfoot",".hlogo"].forEach(function(q){var n=document.querySelector(q);if(n)n.inert=on})}
+function pwReset(){hpw.value="";hpw.type="password";hsh.textContent="show";hsh.setAttribute("aria-pressed","false");pwe.textContent=""}
+function pwOpen(){pwm.hidden=false;bg(true);pwReset();setTimeout(function(){hpw.focus()},30)}
+function pwClose(){pwm.hidden=true;bg(false);pwReset();hkn.focus()}
+hkn.addEventListener("click",pwOpen);$h("pwx").addEventListener("click",pwClose);
+pwm.addEventListener("click",function(e){if(e.target===pwm)pwClose()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!pwm.hidden)pwClose()});
+hsh.addEventListener("click",function(){var sh=hpw.type==="password";hpw.type=sh?"text":"password";hsh.textContent=sh?"hide":"show";hsh.setAttribute("aria-pressed",String(sh))});
+function tryUnlock(){if(DROP_PASSWORD&&hpw.value===DROP_PASSWORD){unlockedMem=true;try{sessionStorage.setItem("ibururu_unlocked","true")}catch(x){}pwm.hidden=true;bg(false);pwReset();scene.classList.add("intro");setTimeout(function(){scene.classList.remove("intro")},3000);view()}
+else{pwe.textContent="Incorrect password.";pwc.classList.remove("bad");void pwc.offsetWidth;pwc.classList.add("bad");hpw.select()}}
+$h("pwf").addEventListener("submit",function(e){e.preventDefault();tryUnlock()});
+
+/* PICTURES: add  im:["pics/dawn-1.jpg","pics/dawn-2.jpg","pics/dawn-3.jpg"]  to any piece (the first is the cover on the card). With no im, the preview shows three sample frames of the sun instead. */
+/* shop: edit this list (dummy pieces). k = how far the sun has sunk (0 = fully up, 130 = set / sold out), t = the hour, d = type, s = short description, z = sizes (empty = one size), c = colors as [name, hex] (empty = none), o = sold out */
+var SZ=["XS","S","M","L","XL"];
+var P=[
+{n:"Dawn Tee",p:25000,t:"05:40",d:"tee",k:85,s:"300gsm heavy cotton. Boxy fit.",z:SZ,c:[["First Light","#F4F4F2"],["Morning Mist","#D3D6DB"],["Nautical Dawn","#2B3E50"]]},
+{n:"Blue Hour Hoodie",p:55000,t:"06:30",d:"hoodie",k:62,s:"Heavy loopback cotton. Relaxed fit.",z:SZ,c:[["Blue hour","#8DA2BC"],["Nuit","#1B2A41"]]},
+{n:"Horizon Cap",p:18000,t:"08:15",d:"cap",k:40,s:"Six panels, adjustable strap.",z:[],c:[["Saffron Ray","#E1AF74"],["Nuit","#1B2A41"],["Stone","#D6D0C4"]]},
+{n:"Kigali Tote",p:15000,t:"12:00",d:"tote",k:0,s:"Heavy canvas with an inside pocket.",z:[],c:[["Aube","#F5F1EA"],["Stone","#D6D0C4"]]},
+{n:"Twilight Print",p:30000,t:"17:50",d:"print, a3",k:22,s:"A3 print on heavy uncoated paper.",z:[],c:[]},
+{n:"Last Light Tee",p:25000,t:"18:20",d:"tee",k:130,o:1,s:"300gsm heavy cotton. Boxy fit.",z:SZ,c:[["Absolute Dusk","#12131C"],["Vesper Violet","#4A3B4E"]]}];
+var sg=document.getElementById("sgrid"),bn=document.getElementById("bn"),ord=document.getElementById("ord"),dl=document.getElementById("dl"),tt=document.getElementById("tt");
+function fmt(n){return n.toLocaleString("en-US")+" rwf"}
+var L='<i class="lay d"></i><i class="lay t"></i>';
+var SK='<div class="sky">'+L+'<div class="sun">'+L+'</div></div><div class="ground">'+L+'<div class="sun" aria-hidden="true">'+L+'</div></div>';
+sg.innerHTML=P.map(function(x,i){return '<div class="card'+(x.o?' set':'')+'" role="button" tabindex="0" data-i="'+i+'" aria-label="'+x.n+', '+fmt(x.p)+(x.o?', sold out':'')+'" style="--k0:'+x.k+'%"><div class="pic">'+SK+(x.im&&x.im[0]?'<img src="'+x.im[0]+'" alt="" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2">':'')+(x.o?'<span class="so voice">sold out</span>':'')+'</div><div class="meta"><span>'+x.n+'</span><span class="pr">'+fmt(x.p)+'</span></div><div class="dots">'+x.c.map(function(c){return '<i style="background:'+c[1]+'"></i>'}).join("")+'</div></div>'}).join("");
+/* the bag: lines of piece + color + size + quantity, remembered in this browser */
+var bag=[],KEY="ibururu-bag",dhn=document.getElementById("dhn");
+try{bag=(JSON.parse(localStorage.getItem(KEY)||"[]")||[]).filter(function(b){return P[b.i]&&!P[b.i].o&&b.q>0})}catch(e){bag=[]}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(bag))}catch(e){}}
+function sync(){var n=0,t=0;
+dl.innerHTML=bag.length?bag.map(function(b,k){var x=P[b.i],sw=(x.c.filter(function(c){return c[0]===b.c})[0]||["","#D6D0C4"])[1],line=x.p*b.q;n+=b.q;t+=line;
+return '<div class="it"><i class="mini" style="--m:'+sw+'"></i><div class="ii"><div>'+x.n+'</div><div class="sm">'+[b.c,b.z].filter(Boolean).join(" \u00b7 ")+'</div><div class="qt"><button class="qm" data-k="'+k+'" aria-label="One fewer">&minus;</button><span>'+b.q+'</span><button class="qp" data-k="'+k+'" aria-label="One more">+</button></div></div><div class="ir"><div class="ip">'+fmt(line)+'</div><button class="rm" data-k="'+k+'">remove</button></div></div>'}).join(""):'<div class="voice em">nothing yet. the sun is still up.</div>';
+bn.textContent=n;dhn.textContent=n;tt.textContent=fmt(t);
+ord.setAttribute("aria-disabled",bag.length?"false":"true");save();cartVis();if(typeof Checkout!=="undefined")Checkout.render()}
+function addLine(i,z,c){var f=bag.filter(function(b){return b.i===i&&b.z===z&&b.c===c})[0];if(f)f.q++;else bag.push({i:i,z:z,c:c,q:1});sync()}
+function chg(k,d){var b=bag[k];if(!b)return;b.q+=d;if(b.q<1)bag.splice(k,1);sync()}
+function open(o){if(o)scene.setAttribute("data-bag","");else scene.removeAttribute("data-bag")}
+dl.addEventListener("click",function(e){var q=e.target.closest("button[data-k]");if(!q)return;var k=+q.getAttribute("data-k");
+if(q.classList.contains("qp"))chg(k,1);else if(q.classList.contains("qm"))chg(k,-1);else chg(k,-bag[k].q)});
+document.getElementById("bagbtn").addEventListener("click",function(){open(true)});
+document.getElementById("dx").addEventListener("click",function(){open(false)});
+document.getElementById("scrim").addEventListener("click",function(){open(false)});
+ord.addEventListener("click",function(e){if(ord.getAttribute("aria-disabled")==="true"){e.preventDefault();return}if(location.hash==="#checkout")open(false)});
+/* the piece view: the picture grows out of its card, then the details and options fade in */
+var pv=document.getElementById("pv"),pvpic=document.getElementById("pvpic"),pvn=document.getElementById("pvn"),pvp=document.getElementById("pvp"),pvs=document.getElementById("pvs"),pvcol=document.getElementById("pvcol"),pvsz=document.getElementById("pvsz"),pvadd=document.getElementById("pvadd"),pvl=document.getElementById("pvl"),pvmsg=document.getElementById("pvmsg");
+var pvi=-1,pvcard=null,pvb=false,sel={z:"",c:""};
+var pvg=document.getElementById("pvg"),pvth=document.getElementById("pvth"),sl=[],cur=0;
+function slidesOf(x){if(x.im&&x.im.length)return x.im.map(function(u){return{u:u}});var k=x.k,b=Math.max(0,Math.min(130,k>=65?k-45:k+45));return[k,b,Math.round((k+b)/2)].map(function(v){return{k:v}})}
+function drawSlide(fade){var x=P[pvi],s=sl[cur];
+if(s.u)pvpic.innerHTML='<img src="'+s.u+'" alt="'+x.n+', picture '+(cur+1)+' of '+sl.length+'" draggable="false">';
+else{pvpic.innerHTML=SK;pvpic.style.setProperty("--k0",s.k+"%")}
+if(fade){pvpic.classList.remove("sw1");void pvpic.offsetWidth;pvpic.classList.add("sw1")}
+pvth.querySelectorAll(".pvtb").forEach(function(b,j){b.setAttribute("aria-pressed",String(j===cur))})}
+function goSlide(j){if(pvb||pvi<0||sl.length<2)return;cur=(j+sl.length)%sl.length;drawSlide(true)}
+function buildGallery(x){sl=slidesOf(x);cur=0;pvg.classList.toggle("multi",sl.length>1);
+pvth.innerHTML=sl.length>1?sl.map(function(s,j){return '<button class="pvtb" type="button" data-j="'+j+'" aria-label="Picture '+(j+1)+'" aria-pressed="'+(j===0)+'">'+(s.u?'<img src="'+s.u+'" alt="" draggable="false">':'<div class="pic" style="--k0:'+s.k+'%">'+SK+'</div>')+'</button>'}).join(""):"";
+pvpic.classList.remove("sw1");drawSlide(false)}
+(function(){var x0=null;pvpic.addEventListener("touchstart",function(e){x0=e.touches[0].clientX},{passive:true});
+pvpic.addEventListener("touchend",function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>40)goSlide(cur+(d<0?1:-1))},{passive:true})})();
+function pvState(){var x=P[pvi],need=x.z.length&&!sel.z;
+pvadd.setAttribute("aria-disabled",x.o||need?"true":"false");pvl.textContent=x.o?"sold out":need?"choose a size":"add to cart"}
+function box(el,sr){var r=el.getBoundingClientRect();return{l:r.left-sr.left,t:r.top-sr.top,w:r.width,h:r.height}}
+function place(c,b){c.style.left=b.l+"px";c.style.top=b.t+"px";c.style.width=b.w+"px";c.style.height=b.h+"px"}
+function pvOpen(card){if(pvb||pvi>=0)return;pvb=true;pvcard=card;pvi=+card.getAttribute("data-i");var x=P[pvi];
+pvn.textContent=x.n;pvp.textContent=fmt(x.p);pvs.textContent=x.s;pvmsg.textContent="";
+sel={z:"",c:x.c.length?x.c[0][0]:""};
+pvcol.innerHTML=x.c.length?'<div class="pvl">color</div><div class="pvsw">'+x.c.map(function(c){return '<button class="sw" style="--c:'+c[1]+'" data-c="'+c[0]+'" aria-label="'+c[0]+'" aria-pressed="'+(c[0]===sel.c)+'"></button>'}).join("")+'<span class="swn">'+sel.c+'</span></div>':"";
+pvsz.innerHTML=x.z.length?'<div class="pvl">size</div><div class="pvzs">'+x.z.map(function(z){return '<button class="zb" data-z="'+z+'" aria-pressed="false">'+z+'</button>'}).join("")+'</div>':"";
+pvpic.style.setProperty("--k0",x.k+"%");buildGallery(x);pvpic.style.setProperty("--k","var(--k0)");pvpic.style.visibility="hidden";pvState();
+var o=card.querySelector(".pic"),sr=scene.getBoundingClientRect(),from=box(o,sr);
+pv.classList.add("on");
+var to=box(pvpic,sr),c=document.createElement("div");c.className="pic pvc";c.innerHTML=o.innerHTML;
+c.querySelectorAll(".hr,.so").forEach(function(e){e.remove()});c.style.setProperty("--k0",x.k+"%");place(c,from);
+scene.appendChild(c);o.style.visibility="hidden";void c.offsetWidth;
+place(c,to);c.style.setProperty("--k",x.o?"var(--k0)":"calc(var(--k0)*.3)");
+setTimeout(function(){pvpic.style.visibility="";c.remove();if(!x.o)pvpic.style.setProperty("--k","calc(var(--k0)*.3)");pvb=false},820)}
+function pvClose(){if(pvb||pvi<0)return;pvb=true;if(cur){cur=0;drawSlide(false)}var x=P[pvi],o=pvcard.querySelector(".pic"),sr=scene.getBoundingClientRect(),from=box(pvpic,sr),to=box(o,sr),c=document.createElement("div");
+c.className="pic pvc";c.innerHTML=pvpic.innerHTML;c.style.setProperty("--k0",x.k+"%");c.style.setProperty("--k",x.o?"var(--k0)":"calc(var(--k0)*.3)");place(c,from);
+scene.appendChild(c);pvpic.style.visibility="hidden";pv.classList.remove("on");void c.offsetWidth;
+place(c,to);c.style.setProperty("--k","var(--k0)");
+setTimeout(function(){o.style.visibility="";c.remove();pvi=-1;pvcard=null;pvb=false},820)}
+sg.addEventListener("click",function(e){var c=e.target.closest(".card");if(c)pvOpen(c)});
+sg.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&e.target.classList.contains("card")){e.preventDefault();pvOpen(e.target)}});
+pv.addEventListener("click",function(e){
+var s1=e.target.closest(".sw"),z1=e.target.closest(".zb");
+if(s1){sel.c=s1.getAttribute("data-c");pvcol.querySelectorAll(".sw").forEach(function(b){b.setAttribute("aria-pressed",String(b===s1))});pvcol.querySelector(".swn").textContent=sel.c}
+else if(z1){sel.z=z1.getAttribute("data-z");pvsz.querySelectorAll(".zb").forEach(function(b){b.setAttribute("aria-pressed",String(b===z1))});pvState()}
+else if(e.target.closest(".pvtb")){goSlide(+e.target.closest(".pvtb").getAttribute("data-j"))}
+else if(e.target.closest("#pvprev"))goSlide(cur-1);
+else if(e.target.closest("#pvnext"))goSlide(cur+1);
+else if(e.target.closest("#pvx")||e.target.id==="pvbk")pvClose();
+else if(e.target.closest("#pvadd")){if(pvadd.getAttribute("aria-disabled")==="true"||pvb)return;addLine(pvi,sel.z,sel.c);pvmsg.textContent="added to your cart";pvClose();setTimeout(function(){open(true)},950)}});
+document.addEventListener("keydown",function(e){if(pvi>=0&&(e.key==="ArrowLeft"||e.key==="ArrowRight")){goSlide(cur+(e.key==="ArrowRight"?1:-1));return}if(e.key!=="Escape")return;if(pvi>=0)pvClose();else open(false)});
+sync();
+/* the checkout page: details, delivery in Rwanda, payment choice. the pay step is a stub until Xentripay is connected (see PAYMENT_READY above) */
+var Checkout=(function(){
+var $=function(i){return document.getElementById(i)},FKEY="ibururu-checkout",DRAFT="ibururu-order-draft";
+var DISTRICTS=[["Kigali City",["Gasabo","Kicukiro","Nyarugenge"]],["Northern Province",["Burera","Gakenke","Gicumbi","Musanze","Rulindo"]],["Southern Province",["Gisagara","Huye","Kamonyi","Muhanga","Nyamagabe","Nyanza","Nyaruguru","Ruhango"]],["Eastern Province",["Bugesera","Gatsibo","Kayonza","Kirehe","Ngoma","Nyagatare","Rwamagana"]],["Western Province",["Karongi","Ngororero","Nyabihu","Nyamasheke","Rubavu","Rusizi","Rutsiro"]]];
+var TEXT=["knm","kem","kph","kdi","kse","kad","kno","kmp"],busy=false;
+var kdi=$("kdi");
+kdi.innerHTML='<option value="">Choose a district</option>'+DISTRICTS.map(function(g){return '<optgroup label="'+g[0]+'">'+g[1].map(function(d){return '<option>'+d+'</option>'}).join("")+'</optgroup>'}).join("");
+$("kpm").innerHTML=PAY_METHODS.map(function(m,i){return '<label class="kopt"><input type="radio" name="pay" value="'+m[0]+'"'+(i===0?" checked":"")+'><span class="kdot"></span><span class="kot">'+m[1]+'<small>'+m[2]+'</small></span></label>'}).join("");
+function phone(v){var d=String(v).replace(/\D/g,"");if(d.indexOf("250")===0)d=d.slice(3);if(d.charAt(0)==="0")d=d.slice(1);return /^7\d{8}$/.test(d)?d:""}
+function method(){var r=document.querySelector('input[name="pay"]:checked');return r?r.value:""}
+var RULES={
+knm:function(v){return v.trim().length>=2?"":"Enter your full name."},
+kem:function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())?"":"Enter a valid email address."},
+kph:function(v){return phone(v)?"":"Enter a Rwandan mobile number, for example 078 123 4567."},
+kdi:function(v){return v?"":"Choose your district."},
+kse:function(v){return v.trim()?"":"Enter your sector."},
+kad:function(v){return v.trim().length>=3?"":"Enter a street, house number or landmark."},
+kmp:function(v){return method()==="momo"&&!$("ksame").checked&&!phone(v)?"Enter the mobile money number to pay with.":""}};
+function check(id){var el=$(id),m=RULES[id]?RULES[id](el.value):"";el.setAttribute("aria-invalid",m?"true":"false");$(id+"-e").textContent=m;return m}
+function store(){try{var o={kmk:$("kmk").checked,ksame:$("ksame").checked,pay:method()};TEXT.forEach(function(id){o[id]=$(id).value});localStorage.setItem(FKEY,JSON.stringify(o))}catch(e){}}
+function load(){try{var o=JSON.parse(localStorage.getItem(FKEY)||"{}");TEXT.forEach(function(id){if(o[id])$(id).value=o[id]});$("kmk").checked=!!o.kmk;if(o.ksame===false)$("ksame").checked=false;
+var r=document.querySelector('input[name="pay"][value="'+o.pay+'"]');if(r)r.checked=true}catch(e){}}
+function totals(){var sub=0;bag.forEach(function(b){sub+=P[b.i].p*b.q});var ship=sub>0?SHIPPING_RWF:0;return{sub:sub,ship:ship,tot:sub+ship}}
+function pay(){var m=method();$("kmo").hidden=m!=="momo";$("kcn").hidden=m!=="card";$("kmof").hidden=m!=="momo"||$("ksame").checked}
+function render(){var t=totals(),has=bag.length>0;
+$("kempty").hidden=has;$("kgrid").hidden=!has;$("kprev").hidden=PAYMENT_READY;
+$("kitems").innerHTML=bag.map(function(b){var x=P[b.i],sw=(x.c.filter(function(c){return c[0]===b.c})[0]||["","#D6D0C4"])[1];
+return '<div class="kit"><div class="kth" style="--m:'+sw+'"><span class="kq">'+b.q+'</span></div><div class="kin">'+x.n+'<small>'+[b.c,b.z].filter(Boolean).join(" \u00b7 ")+'</small></div><div class="kip">'+fmt(x.p*b.q)+'</div></div>'}).join("");
+$("ksub").textContent=fmt(t.sub);$("kship").textContent=fmt(t.ship);$("kshipc").textContent=fmt(t.ship);$("ktot").textContent=fmt(t.tot);
+$("kpl").textContent=has?"pay "+fmt(t.tot):"pay"}
+function msg(t,pre){var m=$("kmsg");m.textContent=t;m.className="kmsg"+(pre?" pre":"")}
+function build(){var t=totals(),m=method(),mp=m==="momo"?phone($("ksame").checked?$("kph").value:$("kmp").value):"";
+return{ref:"IBU-"+Date.now().toString(36).toUpperCase(),created:new Date().toISOString(),currency:"RWF",
+items:bag.map(function(b){var x=P[b.i];return{name:x.n,color:b.c,size:b.z,qty:b.q,unit:x.p,line:x.p*b.q}}),
+subtotal:t.sub,shipping:t.ship,total:t.tot,
+customer:{name:$("knm").value.trim(),email:$("kem").value.trim(),phone:"+250"+phone($("kph").value)},
+delivery:{method:"flat rate",district:$("kdi").value,sector:$("kse").value.trim(),address:$("kad").value.trim(),notes:$("kno").value.trim()},
+payment:{method:m,mobileMoneyNumber:mp?"+250"+mp:""},marketingOptIn:$("kmk").checked}}
+function setBusy(b){busy=b;$("kpay").setAttribute("aria-disabled",b?"true":"false")}
+/* the one place that talks to the payment side. later: your server creates the Xentripay payment and returns {url} */
+function startPayment(order){
+if(!PAYMENT_READY||!PAYMENT_ENDPOINT){
+try{localStorage.setItem(DRAFT,JSON.stringify(order))}catch(e){}
+msg("Preview only: payments are not connected yet, so nothing was charged and your order was not sent. Order "+order.ref+", total "+fmt(order.total)+".",true);$("kmsg").focus();return}
+setBusy(true);msg("Starting your payment\u2026");
+fetch(PAYMENT_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(order)})
+.then(function(r){if(!r.ok)throw 0;return r.json()})
+.then(function(d){if(d&&d.url){window.location.href=d.url}else throw 0})
+.catch(function(){setBusy(false);msg("We could not start the payment. Please try again, or contact us.")})}
+$("kform").addEventListener("submit",function(e){e.preventDefault();if(busy||!bag.length)return;var first=null;
+TEXT.forEach(function(id){if(RULES[id]&&check(id)&&!first)first=$(id)});
+if(first){msg("Please check the highlighted fields.");first.focus();return}
+msg("");startPayment(build())});
+TEXT.forEach(function(id){var el=$(id);el.addEventListener("input",function(){if(el.getAttribute("aria-invalid")==="true")check(id);store()});el.addEventListener("blur",function(){if(RULES[id]&&el.value)check(id)})});
+$("kform").addEventListener("change",function(e){if(e.target.name==="pay"||e.target.id==="ksame"){pay();if(e.target.id==="ksame"||e.target.name==="pay")$("kmp").setAttribute("aria-invalid","false"),$("kmp-e").textContent=""}store()});
+$("kedit").addEventListener("click",function(){open(true)});
+load();pay();render();
+return{render:render}})();
+
+/* policies page: values come from the POLICY block at the top; while POLICY.draft is true the unconfirmed ones are highlighted */
+var polActive;
+function polGo(h){var pg=document.getElementById("policies");if(!pg)return;var id={"#terms":"p-terms","#shipping":"p-shipping","#returns":"p-returns","#privacy":"p-privacy"}[h],el=id&&document.getElementById(id);
+var tc=document.getElementById("ptoc"),off=tc&&window.matchMedia("(max-width:860px)").matches?tc.offsetHeight+16:24;
+pg.scrollTop=el?el.getBoundingClientRect().top-pg.getBoundingClientRect().top+pg.scrollTop-off:0;
+if(typeof polActive==="function")polActive(h)}
+(function(){
+var pg=document.getElementById("policies"),V={updated:POLICY.updated,email:POLICY.email,phone:POLICY.phone,instagram:POLICY.instagram,legalName:POLICY.legalName,deliveryDays:POLICY.deliveryDays,returnDays:POLICY.returnDays,refundDays:POLICY.refundDays,faultyDays:POLICY.faultyDays,shipFee:fmt(SHIPPING_RWF)};
+pg.classList.toggle("final",!POLICY.draft);
+pg.querySelectorAll("[data-v]").forEach(function(el){var k=el.getAttribute("data-v");el.textContent=V[k]||"";if(POLICY.draft&&POLICY.confirm.indexOf(k)>-1)el.classList.add("todo")});
+pg.querySelectorAll("a[data-mail]").forEach(function(a){a.href="mailto:"+POLICY.email});
+pg.querySelectorAll("a[data-wa]").forEach(function(a){a.href="https://wa.me/"+POLICY.phone.replace(/\D/g,"")});
+if(POLICY.legalName){document.getElementById("plegal").hidden=false;document.getElementById("pnote").hidden=true}
+var links=pg.querySelectorAll(".ptoc a"),secs=[].slice.call(pg.querySelectorAll(".pdoc section")),tick=false;
+polActive=function(force){var h;
+if(force&&force!=="#policies")h=force;
+else{var line=pg.getBoundingClientRect().top+Math.min(170,pg.clientHeight*.3),cur=secs[0];
+secs.forEach(function(sx){if(sx.getBoundingClientRect().top<=line)cur=sx});
+if(pg.scrollTop+pg.clientHeight>=pg.scrollHeight-4)cur=secs[secs.length-1];
+h=cur.getAttribute("data-h")}
+links.forEach(function(a){a.setAttribute("aria-current",String(a.getAttribute("href")===h))})};
+pg.addEventListener("scroll",function(){if(!tick){tick=true;requestAnimationFrame(function(){tick=false;polActive()})}},{passive:true});
+if(document.querySelector(".scene").getAttribute("data-view")==="policies")polActive(location.hash);
+})();
+
+/* film: one entry per video. src = path or link to the video file (mp4), empty = placeholder. k = how far the sun has sunk in the poster (0 = fully up) */
+var V=[{src:"",k:55}];
+var vr=document.getElementById("vrow"),PLAY='<button class="play" aria-label="Play video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></button>';
+var POST='<div class="sky">'+L+'<div class="sun">'+L+'</div></div><div class="ground">'+L+'<div class="sun" aria-hidden="true">'+L+'</div></div>'+PLAY;
+vr.innerHTML=V.map(function(x,i){return '<div class="pic vid" data-i="'+i+'" style="--k0:'+x.k+'%">'+POST+'</div>'}).join("");
+vr.addEventListener("click",function(e){var b=e.target.closest(".play");if(!b)return;var t=b.closest(".vid"),x=V[+t.getAttribute("data-i")];if(!x.src)return;
+vr.querySelectorAll(".vid").forEach(function(v){if(v.querySelector("video"))v.innerHTML=POST});
+t.innerHTML='<video controls autoplay playsinline src="'+x.src+'"></video>'});
+/* lookbook: a ring-bound album, three polaroids to a page. src = image file (empty = placeholder), k = how far the sun has sunk in the placeholder (0 = fully up). add or remove photos freely */
+var PH=[30,70,10,100,45,0,85,20,60,120,35,5,75,55,110,15,90,40].map(function(k){return{src:"",k:k}});
+var bw=document.getElementById("bwrap"),bk=document.getElementById("book"),bp=document.getElementById("bprev"),bnx=document.getElementById("bnext");
+var pages=[{t:"c"}];
+for(var pi=0;pi<PH.length;pi+=3)pages.push({t:"p",n:pi/3,ph:PH.slice(pi,pi+3)});
+if((pages.length+1)%2)pages.push({t:"e"});
+pages.push({t:"z"});
+var SKY='<div class="sky">'+L+'<div class="sun">'+L+'</div></div><div class="ground">'+L+'<div class="sun" aria-hidden="true">'+L+'</div></div>';
+/* every polaroid is the same size (PW % of the page width). positions are given as u across, v down, each from 0 to 1 inside the safe area, with a tilt in degrees */
+var PW=33;
+var PRE=[[{u:0,v:0,r:-5},{u:1,v:.5,r:4},{u:.1,v:1,r:-3}],[{u:1,v:0,r:5},{u:.1,v:.5,r:-6},{u:.9,v:1,r:3}],[{u:.05,v:.05,r:-7},{u:.95,v:.3,r:4},{u:.55,v:1,r:-2}],[{u:.6,v:0,r:3},{u:0,v:.62,r:-5},{u:1,v:.8,r:7}]];
+/* safe area: 7% of the page width free on the outer edges and top and bottom, 16% on the spine side (holes and coils). the tilted outline of each polaroid is measured so it can never cross it */
+function plc(a,b){var w=PW,rd=Math.abs(a.r)*Math.PI/180,c=Math.cos(rd),sn=Math.sin(rd),
+bw=w*c+1.22*w*sn,bh=(1.22*w*c+w*sn)*.8,x0=16,x1=93,y0=6.8,y1=94.4,
+cx=x0+bw/2+a.u*(x1-x0-bw),cy=y0+bh/2+a.v*(y1-y0-bh);
+if(b)cx=100-cx;
+return{l:+(cx-w/2).toFixed(2),t:+(cy-.976*w/2).toFixed(2),w:w}}
+var LG=document.getElementById("hlogo").style.getPropertyValue("--logo");
+document.querySelector(".sunmini").style.setProperty("--logo",LG);
+function face(x,b){var c=b?" b l":" r";
+if(x.t==="c")return '<div class="face cover'+c+'"><i class="hl"></i><i class="clogo" style="--logo:'+LG+'"></i></div>';
+if(x.t==="e"||x.t==="z")return '<div class="face cover'+c+'"><i class="hl"></i></div>';
+var set=PRE[x.n%4];
+return '<div class="face pp'+c+'"><i class="hl"></i>'+x.ph.map(function(q,j){var a=set[j],m=plc(a,b),r=b?-a.r:a.r;
+return '<button class="pol'+(j===1&&x.n%2?' tp':'')+'" data-r="'+r+'" style="left:'+m.l+'%;top:'+m.t+'%;width:'+m.w+'%;--r:'+r+'deg" aria-label="Open photo"><span class="pic ph" style="--k0:'+q.k+'%">'+(q.src?'<img src="'+q.src+'" alt="">':SKY)+'</span></button>'}).join("")+'</div>'}
+/* binding: 15 coils, each a wire arching from a punched hole on the left page to the matching hole on the right page */
+var CO='<svg class="coil" viewBox="0 0 100 16" preserveAspectRatio="none" aria-hidden="true"><path class="cd" transform="translate(0,1.2)" d="M0 8.6C24 3.2 76 3.2 100 9.2"/><path class="cw" d="M0 8.6C24 3.2 76 3.2 100 9.2"/><path class="ch" transform="translate(0,-.7)" d="M0 8.6C24 3.2 76 3.2 100 9.2"/></svg>';
+var COILS="";for(var ci=0;ci<15;ci++)COILS+='<div class="cs">'+CO+'</div>';
+var N=pages.length/2,acur=0,lv;
+bk.innerHTML=pages.filter(function(_,i){return i%2===0}).map(function(x,i){return '<div class="leaf" data-i="'+i+'">'+face(x,0)+face(pages[2*i+1],1)+'</div>'}).join("")
++'<div class="rings" aria-hidden="true">'+COILS+'</div>';
+lv=bk.querySelectorAll(".leaf");
+function zi(i){return i<acur?i:N-i}
+function paint(){lv.forEach(function(l,i){l.classList.toggle("f",i<acur);l.style.zIndex=zi(i)});
+bw.setAttribute("data-s",acur===0?"0":acur===N?"e":"m");bp.setAttribute("aria-disabled",String(acur===0));bnx.setAttribute("aria-disabled",String(acur===N))}
+function go(n){if(n<0||n>N||n===acur)return;var mv=lv[n>acur?acur:n];acur=n;paint();mv.style.zIndex=99;
+setTimeout(function(){mv.style.zIndex=zi(+mv.getAttribute("data-i"))},1150)}
+/* magnified view: the polaroid lifts off the page, straightens and grows; the x puts it back */
+var zl=document.getElementById("zl"),zc=null,zo=null,zb=false;
+function zin(o){if(zb||zc)return;zb=true;zo=o;
+var sr=scene.getBoundingClientRect(),r=o.getBoundingClientRect(),w=o.offsetWidth,h=o.offsetHeight,
+cx=r.left-sr.left+r.width/2,cy=r.top-sr.top+r.height/2,rot=+o.getAttribute("data-r");
+var c=document.createElement("div");c.className="pol zm"+(o.classList.contains("tp")?" tp":"");c.innerHTML=o.innerHTML;
+c.style.cssText="left:"+(cx-w/2)+"px;top:"+(cy-h/2)+"px;width:"+w+"px;height:"+h+"px;transform:translate(0px,0px) rotate("+rot+"deg) scale(1)";
+c.setAttribute("data-t0",c.style.transform);zl.appendChild(c);zc=c;o.style.visibility="hidden";
+var sc=Math.min(sr.height*.8/h,sr.width*.9/w);void c.offsetWidth;
+zl.classList.add("on");c.style.transform="translate("+(sr.width/2-cx)+"px,"+(sr.height/2-cy)+"px) rotate(0deg) scale("+sc+")";
+setTimeout(function(){zl.classList.add("x");zb=false},700)}
+function zout(){if(!zc||zb)return;zb=true;zl.classList.remove("x","on");zc.style.transform=zc.getAttribute("data-t0");
+setTimeout(function(){zc.remove();zo.style.visibility="";zc=null;zo=null;zb=false},820)}
+bk.addEventListener("click",function(e){var o=e.target.closest(".pol");if(o){zin(o);return}
+var l=e.target.closest(".leaf");if(!l)return;var i=+l.getAttribute("data-i");if(i===acur)go(acur+1);else if(i===acur-1)go(acur-1)});
+zl.addEventListener("click",function(e){if(e.target===zl||e.target.classList.contains("zbk")||e.target.closest(".zx"))zout()});
+bp.addEventListener("click",function(){go(acur-1)});
+bnx.addEventListener("click",function(){go(acur+1)});
+document.addEventListener("keydown",function(e){if(location.hash!=="#lookbook")return;
+if(zc){if(e.key==="Escape")zout();return}
+if(e.key==="ArrowRight")go(acur+1);if(e.key==="ArrowLeft")go(acur-1)});
+paint();
+var send=document.getElementById("send"),fn=document.getElementById("cn"),fe=document.getElementById("ce"),fm=document.getElementById("cm");
+send.addEventListener("click",function(e){
+var msg=fm.value.trim();
+if(!msg){e.preventDefault();fm.focus();return}
+var who=[fn.value.trim(),fe.value.trim()].filter(Boolean).join(" / ");
+send.href="mailto:ibururukgl@gmail.com?subject="+encodeURIComponent("message from the ibururu site")+"&body="+encodeURIComponent(msg+(who?"\n\n- "+who:""))});
+var f=new Intl.DateTimeFormat("en-GB",{timeZone:"Africa/Kigali",day:"2-digit",month:"2-digit",year:"numeric",hour:"numeric",minute:"2-digit",second:"2-digit",hour12:true});
+var ct=document.getElementById("ct"),cd=document.getElementById("cd");
+function tick(){var o={};f.formatToParts(new Date()).forEach(function(p){o[p.type]=p.value});
+cd.textContent=o.day+"/"+o.month+"/"+o.year;
+ct.textContent=o.hour+":"+o.minute+":"+o.second+" "+(o.dayPeriod||"").toLowerCase()}
+tick();setInterval(tick,1000);
+})();
+</script>
+</body>
+</html>
